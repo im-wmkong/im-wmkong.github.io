@@ -1,0 +1,1402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>hexo常用命令</title>
+    <url>/2020/07/12/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<h1 id="hexo-常用命令"><a href="#hexo-常用命令" class="headerlink" title="hexo 常用命令"></a>hexo 常用命令</h1><h2 id="常见命令"><a href="#常见命令" class="headerlink" title="常见命令"></a>常见命令</h2><h3 id="新建文章"><a href="#新建文章" class="headerlink" title="新建文章"></a>新建文章</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo new "postName"</span><br></pre></td></tr></table></figure>
+
+<h3 id="新建页面"><a href="#新建页面" class="headerlink" title="新建页面"></a>新建页面</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo new page "pageName"</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h3 id="生成静态页面至public目录"><a href="#生成静态页面至public目录" class="headerlink" title="生成静态页面至public目录"></a>生成静态页面至public目录</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo generate</span><br></pre></td></tr></table></figure>
+
+<h3 id="开启预览访问"><a href="#开启预览访问" class="headerlink" title="开启预览访问"></a>开启预览访问</h3><p>默认端口4000，’ctrl + c’关闭server</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+
+<h3 id="部署到GitHub"><a href="#部署到GitHub" class="headerlink" title="部署到GitHub"></a>部署到GitHub</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看帮助"><a href="#查看帮助" class="headerlink" title="查看帮助"></a>查看帮助</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo help</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看Hexo的版本"><a href="#查看Hexo的版本" class="headerlink" title="查看Hexo的版本"></a>查看Hexo的版本</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo version</span><br></pre></td></tr></table></figure>
+
+<h3 id="缩写"><a href="#缩写" class="headerlink" title="缩写"></a>缩写</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo n == hexo new</span><br><span class="line">hexo g == hexo generate</span><br><span class="line">hexo s == hexo server</span><br><span class="line">hexo d == hexo deploy</span><br></pre></td></tr></table></figure>
+
+<h3 id="组合命令"><a href="#组合命令" class="headerlink" title="组合命令"></a>组合命令</h3><h4 id="生成并本地预览"><a href="#生成并本地预览" class="headerlink" title="生成并本地预览"></a>生成并本地预览</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo s -g</span><br></pre></td></tr></table></figure>
+
+<h4 id="生成并上传"><a href="#生成并上传" class="headerlink" title="生成并上传"></a>生成并上传</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo d -g</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>10 个你可能不知道的 Laravel Eloquent 小技巧</title>
+    <url>/2020/07/12/10-%E4%B8%AA%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84-Laravel-Eloquent-%E5%B0%8F%E6%8A%80%E5%B7%A7/</url>
+    <content><![CDATA[<h1 id="10-个-Laravel-Eloquent-小技巧"><a href="#10-个-Laravel-Eloquent-小技巧" class="headerlink" title="10 个 Laravel Eloquent 小技巧"></a>10 个 Laravel Eloquent 小技巧</h1><p>Laravel 是一个功能丰富的框架。但是，你无法从官方文档中找到所有可用的功能。以下是一些你可能不知道的功能。</p>
+<a id="more"></a>
+
+<h2 id="1-获取原始属性"><a href="#1-获取原始属性" class="headerlink" title="1.获取原始属性"></a>1.获取原始属性</h2><p>当修改一条 Eloquent 模型记录的时候你可以通过调用 <code>getOriginal()</code> 方法获取记录的原始属性</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$user = App\User::first();</span><br><span class="line">$user-&gt;name;                   <span class="comment">//John</span></span><br><span class="line"></span><br><span class="line">$user-&gt;name = <span class="string">"Peter"</span>;         <span class="comment">//Peter</span></span><br><span class="line"></span><br><span class="line">$user-&gt;getOriginal(<span class="string">'name'</span>);    <span class="comment">//John</span></span><br><span class="line">$user-&gt;getOriginal();          <span class="comment">//原始 $user 记录</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-检查模型是否被修改"><a href="#2-检查模型是否被修改" class="headerlink" title="2. 检查模型是否被修改"></a>2. 检查模型是否被修改</h2><p>使用 <code>isDirty()</code> 方法确定模型或给定属性是否已被修改</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$user = App\User::first();</span><br><span class="line">$user-&gt;isDirty();          <span class="comment">//false</span></span><br><span class="line"></span><br><span class="line">$user-&gt;name = <span class="string">"Peter"</span>;</span><br><span class="line">$user-&gt;isDirty();          <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+
+<p>也可以检查指定属性是否被修改。</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$user-&gt;isDirty(<span class="string">'name'</span>);    <span class="comment">//true</span></span><br><span class="line">$user-&gt;isDirty(<span class="string">'age'</span>);     <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-获取更改的属性"><a href="#3-获取更改的属性" class="headerlink" title="3. 获取更改的属性"></a>3. 获取更改的属性</h2><p>使用 <code>getChanges()</code> 获取更改的属性</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$user-&gt;getChanges()</span><br><span class="line"></span><br><span class="line"><span class="comment">//[</span></span><br><span class="line">     <span class="string">"name"</span> =&gt; <span class="string">"Peter"</span>,</span><br><span class="line">  ]</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注：仅当您使用 <code>syncChanges()</code> 保存模型或同步更新时，才生效</p>
+</blockquote>
+<h2 id="4-定义-deleted-at-字段"><a href="#4-定义-deleted-at-字段" class="headerlink" title="4. 定义 deleted_at 字段"></a>4. 定义 <code>deleted_at</code> 字段</h2><p>默认情况下，Laravel使用<code>deleted_at</code>字段处理软删除。 您可以通过定义<code>DELETED_AT</code>属性来更改它。</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">extends</span> <span class="title">Model</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">use</span> <span class="title">SoftDeletes</span>;</span><br><span class="line"></span><br><span class="line">     * The name of the <span class="string">"deleted at"</span> column.</span><br><span class="line">     *</span><br><span class="line">     * @<span class="keyword">var</span> string</span><br><span class="line">     */</span><br><span class="line">    <span class="keyword">const</span> DELETED_AT = <span class="string">'is_deleted'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>或者定义访问</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">extends</span> <span class="title">Model</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">use</span> <span class="title">SoftDeletes</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getDeletedAtColumn</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'is_deleted'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-保存模型和关系"><a href="#5-保存模型和关系" class="headerlink" title="5. 保存模型和关系"></a>5. 保存模型和关系</h2><p>您可以使用<code>push()</code>方法保存模型及其关联。</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">extends</span> <span class="title">Model</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">phone</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;hasOne(<span class="string">'App\Phone'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$user = User::first();</span><br><span class="line">$user-&gt;name = <span class="string">"Peter"</span>;</span><br><span class="line"></span><br><span class="line">$user-&gt;phone-&gt;number = <span class="string">'1234567890'</span>;</span><br><span class="line"></span><br><span class="line">$user-&gt;push(); <span class="comment">// 这将更新数据库中的用户和电话</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="6-重新加载模型"><a href="#6-重新加载模型" class="headerlink" title="6. 重新加载模型"></a>6. 重新加载模型</h2><p>使用 <code>fresh()</code> 重新从数据库加载一个模型。</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$user = App\User::first();</span><br><span class="line">$user-&gt;name;               <span class="comment">// John</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// user 表被其他进程修改。 例：数据库又插入一条 “name” 为 “Peter” 的数据。</span></span><br><span class="line"></span><br><span class="line">$updatedUser = $user-&gt;fresh();</span><br><span class="line">$updatedUser-&gt;name;       <span class="comment">// Peter</span></span><br><span class="line"></span><br><span class="line">$user-&gt;name;              <span class="comment">// John</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="7-重新加载现有模型"><a href="#7-重新加载现有模型" class="headerlink" title="7. 重新加载现有模型"></a>7. 重新加载现有模型</h2><p>你可以使用 <code>refresh()</code> 方法从数据库重新加载具有新值的现有模型。</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$user = App\User::first();</span><br><span class="line">$user-&gt;name;               <span class="comment">// John</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// user 表被其他进程修改。例: “name” 被修改为 “Peter” 。</span></span><br><span class="line"></span><br><span class="line">$user-&gt;refresh();</span><br><span class="line">$user-&gt;name;              <span class="comment">// Peter</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注: <code>refresh()</code> 也会更新模型的关联模型数据。</p>
+</blockquote>
+<h2 id="8-检查模型是否为同一个"><a href="#8-检查模型是否为同一个" class="headerlink" title="8. 检查模型是否为同一个"></a>8. 检查模型是否为同一个</h2><p>使用 <code>is()</code> 方法确定两个模型是否拥有相同主键并且属于同一张表。</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$user = App\User::find(<span class="number">1</span>);</span><br><span class="line">$sameUser = App\User::find(<span class="number">1</span>);</span><br><span class="line">$diffUser = App\User::find(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">$user-&gt;is($sameUser);       <span class="comment">// true</span></span><br><span class="line">$user-&gt;is($diffUser);       <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="9-克隆一个模型"><a href="#9-克隆一个模型" class="headerlink" title="9. 克隆一个模型"></a>9. 克隆一个模型</h2><p>你可以使用 <code>replicate()</code> 方法来复制一个模型到一个新的对象中。</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$user = App\User::find(<span class="number">1</span>);</span><br><span class="line">$newUser = $user-&gt;replicate();</span><br><span class="line"></span><br><span class="line">$newUser-&gt;save();</span><br></pre></td></tr></table></figure>
+
+<h2 id="10-在-find-方法中指定查找的属性"><a href="#10-在-find-方法中指定查找的属性" class="headerlink" title="10. 在 find() 方法中指定查找的属性"></a>10. 在 <code>find()</code> 方法中指定查找的属性</h2><p>当使用 <code>find()</code> 或 <code>findOrFail()</code> 方法时，传入第二个参数可以指定需要查找的属性。</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$user = App\User::find(<span class="number">1</span>, [<span class="string">'name'</span>, <span class="string">'age'</span>]);</span><br><span class="line"></span><br><span class="line">$user = App\User::findOrFail(<span class="number">1</span>, [<span class="string">'name'</span>, <span class="string">'age'</span>]);</span><br></pre></td></tr></table></figure>
+
+<p>原文：<a href="https://medium.com/JinoAntony/10-hidden-laravel-eloquent-features-you-may-not-know-efc8ccc58d9e" target="_blank" rel="noopener">https://medium.com/JinoAntony/10-hidden-laravel-eloquent-features-you-may-not-know-efc8ccc58d9e</a></p>
+]]></content>
+      <tags>
+        <tag>Laravel</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>在面试前必须要知道的 Redis 面试内容</title>
+    <url>/2020/07/12/%E5%9C%A8%E9%9D%A2%E8%AF%95%E5%89%8D%E5%BF%85%E9%A1%BB%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84-Redis-%E9%9D%A2%E8%AF%95%E5%86%85%E5%AE%B9/</url>
+    <content><![CDATA[<h1 id="在面试前必须要知道的-Redis-面试内容"><a href="#在面试前必须要知道的-Redis-面试内容" class="headerlink" title="在面试前必须要知道的 Redis 面试内容"></a>在面试前必须要知道的 Redis 面试内容</h1><p>今天来分享一下Redis几道常见的面试题：</p>
+<ul>
+<li>如何解决缓存雪崩？</li>
+<li>如何解决缓存穿透？</li>
+<li>如何保证缓存与数据库双写时一致的问题？</li>
+</ul>
+<a id="more"></a>
+
+<h2 id="一、缓存雪崩"><a href="#一、缓存雪崩" class="headerlink" title="一、缓存雪崩"></a>一、缓存雪崩</h2><h3 id="什么是缓存雪崩？"><a href="#什么是缓存雪崩？" class="headerlink" title="什么是缓存雪崩？"></a>什么是缓存雪崩？</h3><p>回顾一下我们为什么要用缓存(Redis)：</p>
+<p><img src="https://i.loli.net/2020/07/12/Hfw2SxC3dhK98AO.png" alt="1.png"></p>
+<p>现在有个问题，如果我们的缓存挂掉了，这意味着我们的全部请求都跑去数据库了。</p>
+<p><img src="https://i.loli.net/2020/07/12/XHFic2UZRMTI35z.png" alt="2.png"></p>
+<p>在前面学习我们都知道Redis不可能把所有的数据都缓存起来(<strong>内存昂贵且有限</strong>)，所以Redis需要对数据设置过期时间，并采用的是惰性删除+定期删除两种策略对过期键删除。</p>
+<p>如果缓存数据<strong>设置的过期时间是相同的</strong>，并且Redis恰好将这部分数据全部删光了。这就会导致在这段时间内，这些<strong>缓存同时失效</strong>，全部请求到数据库中。</p>
+<p><strong>这就是缓存雪崩：</strong></p>
+<p>Redis挂掉了，请求全部走数据库。<br>对缓存数据设置相同的过期时间，导致某段时间内缓存失效，请求全部走数据库。<br>缓存雪崩如果发生了，很可能就把我们的数据库<strong>搞垮</strong>，导致整个服务瘫痪！</p>
+<h3 id="如何解决缓存雪崩？"><a href="#如何解决缓存雪崩？" class="headerlink" title="如何解决缓存雪崩？"></a>如何解决缓存雪崩？</h3><p>对于“对缓存数据设置相同的过期时间，导致某段时间内缓存失效，请求全部走数据库。”这种情况，非常好解决：</p>
+<p>解决方法：在缓存的时候给过期时间加上一个<strong>随机值</strong>，这样就会大幅度的<strong>减少缓存在同一时间过期</strong>。</p>
+<p>对于“Redis挂掉了，请求全部走数据库”这种情况，我们可以有以下的思路：</p>
+<p>事发前：实现Redis的高可用(主从架构+Sentinel 或者Redis Cluster)，尽量避免Redis挂掉这种情况发生。<br>事发中：万一Redis真的挂了，我们可以设置<strong>本地缓存(ehcache)+限流(hystrix)</strong>，尽量避免我们的数据库被干掉(起码能保证我们的服务还是能正常工作的)<br>事发后：redis持久化，重启后自动从磁盘上加载数据，<strong>快速恢复缓存数据</strong>。</p>
+<h2 id="二、缓存穿透"><a href="#二、缓存穿透" class="headerlink" title="二、缓存穿透"></a>二、缓存穿透</h2><h3 id="什么是缓存穿透？"><a href="#什么是缓存穿透？" class="headerlink" title="什么是缓存穿透？"></a>什么是缓存穿透？</h3><p>比如，我们有一张数据库表，ID都是从1开始的(正数)</p>
+<p>但是可能有黑客想把我的数据库搞垮，每次请求的ID都是负数。这会导致我的缓存就没用了，请求全部都找数据库去了，但数据库也没有这个值啊，所以每次都返回空出去。</p>
+<blockquote>
+<p>缓存穿透是指查询一个一定<strong>不存在的数据</strong>。由于缓存不命中，并且出于容错考虑，如果<strong>从数据库查不到数据则不写入缓存</strong>，这将导致这个不存在的数据<strong>每次请求都要到数据库去查询</strong>，失去了缓存的意义。</p>
+</blockquote>
+<p><img src="https://i.loli.net/2020/07/12/QS2vTOenA9u7mKc.png" alt="3.png"></p>
+<p><strong>这就是缓存穿透：</strong></p>
+<p>请求的数据在缓存大量不命中，导致请求走数据库。<br>缓存穿透如果发生了，也可能把我们的数据库<strong>搞垮</strong>，导致整个服务瘫痪！</p>
+<h3 id="如何解决缓存穿透？"><a href="#如何解决缓存穿透？" class="headerlink" title="如何解决缓存穿透？"></a>如何解决缓存穿透？</h3><p>解决缓存穿透也有两种方案：</p>
+<p>由于请求的参数是不合法的(每次都请求不存在的参数)，于是我们可以使用布隆过滤器(BloomFilter)或者压缩filter<strong>提前拦截</strong>，不合法就不让这个请求到数据库层！<br>当我们从数据库找不到的时候，我们也将这个<strong>空对象设置到缓存里边去</strong>。下次再请求的时候，就可以从缓存里边获取了。</p>
+<p>这种情况我们一般会将空对象设置一个<strong>较短的过期时间</strong>。</p>
+<h2 id="三、缓存与数据库双写一致"><a href="#三、缓存与数据库双写一致" class="headerlink" title="三、缓存与数据库双写一致"></a>三、缓存与数据库双写一致</h2><h3 id="对于读操作，流程是这样的"><a href="#对于读操作，流程是这样的" class="headerlink" title="对于读操作，流程是这样的"></a>对于读操作，流程是这样的</h3><p>上面讲缓存穿透的时候也提到了：如果从数据库查不到数据则不写入缓存。<br>一般我们对<strong>读操作</strong>的时候有这么一个<strong>固定的套路</strong>：</p>
+<ul>
+<li>如果我们的数据在缓存里边有，那么就直接取缓存的。</li>
+<li>如果缓存里没有我们想要的数据，我们会先去查询数据库，然后将数据库查出来的数据写到缓存中。</li>
+<li>最后将数据返回给请求</li>
+</ul>
+<h3 id="什么是缓存与数据库双写一致问题？"><a href="#什么是缓存与数据库双写一致问题？" class="headerlink" title="什么是缓存与数据库双写一致问题？"></a>什么是缓存与数据库双写一致问题？</h3><p>如果仅仅查询的话，缓存的数据和数据库的数据是没问题的。但是，当我们要<strong>更新</strong>时候呢？各种情况很可能就<strong>造成数据库和缓存的数据不一致了</strong>。</p>
+<p>这里不一致指的是：<strong>数据库的数据跟缓存的数据不一致</strong></p>
+<p><img src="https://i.loli.net/2020/07/12/bUjsCFMPJ649Tey.png" alt="4.png"></p>
+<p>从理论上说，只要我们设置了<strong>键的过期时间</strong>，我们就能保证缓存和数据库的数据<strong>最终是一致的</strong>。因为只要缓存数据过期了，就会被删除。随后读的时候，因为缓存里没有，就可以查数据库的数据，然后将数据库查出来的数据写入到缓存中。<br>除了设置过期时间，我们还需要做更多的措施来<strong>尽量避免</strong>数据库与缓存处于不一致的情况发生。</p>
+<h3 id="对于更新操作"><a href="#对于更新操作" class="headerlink" title="对于更新操作"></a>对于更新操作</h3><p>一般来说，执行更新操作时，我们会有两种选择：</p>
+<ul>
+<li>先操作数据库，再操作缓存</li>
+<li>先操作缓存，再操作数据库</li>
+</ul>
+<p>首先，要明确的是，无论我们选择哪个，我们都希望这<strong>两个操作要么同时成功，要么同时失败</strong>。所以，这会演变成一个<strong>分布式事务</strong>的问题。<br>所以，<strong>如果原子性被破坏了</strong>，可能会有以下的情况：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* 操作数据库成功了，操作缓存失败了。</span><br><span class="line">* 操作缓存成功了，操作数据库失败了。</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果第一步已经失败了，我们直接返回Exception出去就好了，第二步根本不会执行。</p>
+</blockquote>
+<p>下面我们具体来分析一下吧。</p>
+<h4 id="操作缓存"><a href="#操作缓存" class="headerlink" title="操作缓存"></a>操作缓存</h4><p>操作缓存也有两种方案：</p>
+<ul>
+<li>更新缓存</li>
+<li>删除缓存</li>
+</ul>
+<p>一般我们都是采取<strong>删除缓存</strong>缓存策略的，原因如下：</p>
+<ol>
+<li>高并发环境下，无论是先操作数据库还是后操作数据库而言，如果加上更新缓存，那就<strong>更加容易</strong>导致数据库与缓存数据不一致问题。(删除缓存<strong>直接和简单</strong>很多)</li>
+<li>如果每次更新了数据库，都要更新缓存【这里指的是频繁更新的场景，这会耗费一定的性能】，倒不如直接删除掉。等再次读取时，缓存里没有，那我到数据库找，在数据库找到再写到缓存里边(体现<strong>懒加载</strong>)</li>
+</ol>
+<p>基于这两点，对于缓存在更新时而言，都是建议执行<strong>删除操作</strong>！</p>
+<h4 id="先更新数据库，再删除缓存"><a href="#先更新数据库，再删除缓存" class="headerlink" title="先更新数据库，再删除缓存"></a>先更新数据库，再删除缓存</h4><p>正常的情况是这样的：</p>
+<ul>
+<li>先操作数据库，成功；</li>
+<li>再删除缓存，也成功；</li>
+</ul>
+<p>如果原子性被破坏了：</p>
+<ul>
+<li>第一步成功(操作数据库)，第二步失败(删除缓存)，会导致<strong>数据库里是新数据，而缓存里是旧数据</strong>。</li>
+<li>如果第一步(操作数据库)就失败了，我们可以直接返回错误(Exception)，不会出现数据不一致。</li>
+</ul>
+<p>如果在高并发的场景下，出现数据库与缓存数据不一致的<strong>概率特别低</strong>，也不是没有：</p>
+<ul>
+<li>缓存<strong>刚好</strong>失效</li>
+<li>线程A查询数据库，得一个旧值</li>
+<li>线程B将新值写入数据库</li>
+<li>线程B删除缓存</li>
+<li>线程A将查到的旧值写入缓存</li>
+</ul>
+<p>要达成上述情况，还是说一句<strong>概率特别低</strong>：</p>
+<blockquote>
+<p>因为这个条件需要发生在读缓存时缓存失效，而且并发着有一个写操作。而实际上数据库的写操作会比读操作慢得多，而且还要锁表，<strong>而读操作必需在写操作前进入数据库操作，而又要晚于写操作更新缓存</strong>，所有的这些条件都具备的概率基本并不大。</p>
+</blockquote>
+<p>对于这种策略，其实是一种设计模式：<code>Cache Aside Pattern</code></p>
+<p><img src="https://i.loli.net/2020/07/12/iPHeV2LEWNCbU4r.png" alt="5.png"></p>
+<p><strong>删除缓存失败的解决思路：</strong></p>
+<ul>
+<li>将需要删除的key发送到消息队列中</li>
+<li>自己消费消息，获得需要删除的key</li>
+<li><strong>不断重试删除操作，直到成功</strong></li>
+</ul>
+<h4 id="先删除缓存，再更新数据库"><a href="#先删除缓存，再更新数据库" class="headerlink" title="先删除缓存，再更新数据库"></a>先删除缓存，再更新数据库</h4><p>正常情况是这样的：</p>
+<ul>
+<li>先删除缓存，成功；</li>
+<li>再更新数据库，也成功；</li>
+</ul>
+<p>如果原子性被破坏了：</p>
+<ul>
+<li>第一步成功(删除缓存)，第二步失败(更新数据库)，数据库和缓存的数据还是一致的。</li>
+<li>如果第一步(删除缓存)就失败了，我们可以直接返回错误(Exception)，数据库和缓存的数据还是一致的。</li>
+</ul>
+<p>看起来是很美好，但是我们在并发场景下分析一下，就知道还是有问题的了：</p>
+<ul>
+<li>线程A删除了缓存</li>
+<li>线程B查询，发现缓存已不存在</li>
+<li>线程B去数据库查询得到旧值</li>
+<li>线程B将旧值写入缓存</li>
+<li>线程A将新值写入数据库</li>
+</ul>
+<p>所以也会导致数据库和缓存不一致的问题。</p>
+<p><strong>并发下解决数据库与缓存不一致的思路：</strong></p>
+<ul>
+<li><p>将删除缓存、修改数据库、读取缓存等的操作积压到队列里边，实现串行化。</p>
+<p><img src="https://i.loli.net/2020/07/12/1VMHmuZTSDYLwxW.png" alt="6.png"></p>
+</li>
+</ul>
+<h3 id="对比两种策略"><a href="#对比两种策略" class="headerlink" title="对比两种策略"></a>对比两种策略</h3><p>我们可以发现，两种策略各自有优缺点：</p>
+<ul>
+<li>先删除缓存，再更新数据库<ul>
+<li>在高并发下表现不如意，在原子性被破坏时表现优异</li>
+</ul>
+</li>
+<li>先更新数据库，再删除缓存( <code>Cache Aside Pattern</code> 设计模式)<ul>
+<li>在高并发下表现优异，在原子性被破坏时表现不如意</li>
+</ul>
+</li>
+</ul>
+<p>原文链接：<a href="https://segmentfault.com/a/1190000017882763" target="_blank" rel="noopener">https://segmentfault.com/a/1190000017882763</a></p>
+]]></content>
+      <tags>
+        <tag>Redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>php 文件操作</title>
+    <url>/2020/07/12/php-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<h1 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h1><h3 id="读取和写入"><a href="#读取和写入" class="headerlink" title="读取和写入"></a>读取和写入</h3><h4 id="读取文件内容，输出到浏览器"><a href="#读取文件内容，输出到浏览器" class="headerlink" title="读取文件内容，输出到浏览器"></a>读取文件内容，输出到浏览器</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">readfile(path);</span><br></pre></td></tr></table></figure>
+
+<h4 id="把文件内容取出来做成数组，内容行数为元素个数"><a href="#把文件内容取出来做成数组，内容行数为元素个数" class="headerlink" title="把文件内容取出来做成数组，内容行数为元素个数"></a>把文件内容取出来做成数组，内容行数为元素个数</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">file(path);</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h4 id="将整个文件读入一个字符串"><a href="#将整个文件读入一个字符串" class="headerlink" title="将整个文件读入一个字符串"></a>将整个文件读入一个字符串</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">file_get_contents(path);</span><br></pre></td></tr></table></figure>
+
+<h4 id="将一个字符串写入文件"><a href="#将一个字符串写入文件" class="headerlink" title="将一个字符串写入文件"></a>将一个字符串写入文件</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">file_put_contents(path, $str);</span><br></pre></td></tr></table></figure>
+
+<h3 id="打开，写入-读取，关闭"><a href="#打开，写入-读取，关闭" class="headerlink" title="打开，写入/读取，关闭"></a>打开，写入/读取，关闭</h3><h4 id="打开一个文件"><a href="#打开一个文件" class="headerlink" title="打开一个文件"></a>打开一个文件</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">php$res = fopen(path);</span><br></pre></td></tr></table></figure>
+
+<h4 id="把内容写入文件"><a href="#把内容写入文件" class="headerlink" title="把内容写入文件"></a>把内容写入文件</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">fwrite($res, $str);</span><br></pre></td></tr></table></figure>
+
+<h4 id="移动文件指针"><a href="#移动文件指针" class="headerlink" title="移动文件指针"></a>移动文件指针</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">fseek($res, $offset);</span><br></pre></td></tr></table></figure>
+
+<h4 id="读取文件"><a href="#读取文件" class="headerlink" title="读取文件"></a>读取文件</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">fread($res, $length);</span><br></pre></td></tr></table></figure>
+
+<h4 id="关闭一个已打开的文件指针"><a href="#关闭一个已打开的文件指针" class="headerlink" title="关闭一个已打开的文件指针"></a>关闭一个已打开的文件指针</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">fclose($res);</span><br></pre></td></tr></table></figure>
+
+<h4 id="测试文件指针是否到了文件结束的位置"><a href="#测试文件指针是否到了文件结束的位置" class="headerlink" title="测试文件指针是否到了文件结束的位置"></a>测试文件指针是否到了文件结束的位置</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">feof($res);</span><br></pre></td></tr></table></figure>
+
+<h4 id="返回文件指针读-写的位置"><a href="#返回文件指针读-写的位置" class="headerlink" title="返回文件指针读/写的位置"></a>返回文件指针读/写的位置</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">ftell($res);</span><br></pre></td></tr></table></figure>
+
+<h4 id="文件指针的位置倒回至开头"><a href="#文件指针的位置倒回至开头" class="headerlink" title="文件指针的位置倒回至开头"></a>文件指针的位置倒回至开头</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">rewind($res);</span><br></pre></td></tr></table></figure>
+
+<h4 id="打开方式"><a href="#打开方式" class="headerlink" title="打开方式"></a>打开方式</h4><p>r 以只读方式打开 如果文件不存在报错<br>r+ 以读写方式打开 覆盖写 如果文件不存在报错</p>
+<p>w 以只写方式打开 如果文件不存在 则创建<br>w+ 以读写方式打开 如果文件不存在 则创建</p>
+<p>a 以只写方式打开 如果文件不存在 则创建 累加写入<br>a+ 以读写方式打开 如果文件不存在 则创建 累加写入</p>
+<p>x 以只写方式打开 文件存在报错 如果文件不存在创建<br>x+ 以读写方式打开 文件存在报错 如果文件不存在创建</p>
+<h3 id="文件路径"><a href="#文件路径" class="headerlink" title="文件路径"></a>文件路径</h3><h4 id="以数组形式返回文件路径的信息"><a href="#以数组形式返回文件路径的信息" class="headerlink" title="以数组形式返回文件路径的信息"></a>以数组形式返回文件路径的信息</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">pathinfo(path);</span><br></pre></td></tr></table></figure>
+
+<h4 id="返回路径中的文件名部分"><a href="#返回路径中的文件名部分" class="headerlink" title="返回路径中的文件名部分"></a>返回路径中的文件名部分</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">basename(path);</span><br></pre></td></tr></table></figure>
+
+<h4 id="返回路径中的目录部分"><a href="#返回路径中的目录部分" class="headerlink" title="返回路径中的目录部分"></a>返回路径中的目录部分</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">dirname(path);</span><br></pre></td></tr></table></figure>
+
+<h4 id="讲数组转换成为url地址的参数信息"><a href="#讲数组转换成为url地址的参数信息" class="headerlink" title="讲数组转换成为url地址的参数信息"></a>讲数组转换成为url地址的参数信息</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">http_build_query($arr);</span><br></pre></td></tr></table></figure>
+
+<h4 id="解析URL，返回其组成部分"><a href="#解析URL，返回其组成部分" class="headerlink" title="解析URL，返回其组成部分"></a>解析URL，返回其组成部分</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">parse_url($url);</span><br></pre></td></tr></table></figure>
+
+<h4 id="将字符串解析成多个变量"><a href="#将字符串解析成多个变量" class="headerlink" title="将字符串解析成多个变量"></a>将字符串解析成多个变量</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">parse_str($str, $output);</span><br><span class="line"><span class="keyword">echo</span> $output[<span class="string">'arr'</span>][<span class="number">0</span>];</span><br><span class="line"><span class="keyword">echo</span> $output[<span class="string">'arr'</span>][<span class="number">1</span>];</span><br></pre></td></tr></table></figure>
+
+<h3 id="文件的判断"><a href="#文件的判断" class="headerlink" title="文件的判断"></a>文件的判断</h3><h4 id="判断文件是否存在"><a href="#判断文件是否存在" class="headerlink" title="判断文件是否存在"></a>判断文件是否存在</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">file_exists($filename);</span><br></pre></td></tr></table></figure>
+
+<h4 id="判断是否是一个文件"><a href="#判断是否是一个文件" class="headerlink" title="判断是否是一个文件"></a>判断是否是一个文件</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">is_file($filename);</span><br></pre></td></tr></table></figure>
+
+<h4 id="判断是否是一个目录"><a href="#判断是否是一个目录" class="headerlink" title="判断是否是一个目录"></a>判断是否是一个目录</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">is_dir($filename);</span><br></pre></td></tr></table></figure>
+
+<h4 id="判断是否可写"><a href="#判断是否可写" class="headerlink" title="判断是否可写"></a>判断是否可写</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">is_writable($filename);</span><br></pre></td></tr></table></figure>
+
+<h4 id="判断是否可读"><a href="#判断是否可读" class="headerlink" title="判断是否可读"></a>判断是否可读</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">is_readable($filename);</span><br></pre></td></tr></table></figure>
+
+<h4 id="判断是否可执行"><a href="#判断是否可执行" class="headerlink" title="判断是否可执行"></a>判断是否可执行</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">is_executable($filename);</span><br></pre></td></tr></table></figure>
+
+<h3 id="文件夹操作"><a href="#文件夹操作" class="headerlink" title="文件夹操作"></a>文件夹操作</h3><h4 id="创建文件夹"><a href="#创建文件夹" class="headerlink" title="创建文件夹"></a>创建文件夹</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">mkdir(path);</span><br></pre></td></tr></table></figure>
+
+<h4 id="删除文件夹"><a href="#删除文件夹" class="headerlink" title="删除文件夹"></a>删除文件夹</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">rmdir(path);</span><br></pre></td></tr></table></figure>
+
+<h4 id="打开文件夹"><a href="#打开文件夹" class="headerlink" title="打开文件夹"></a>打开文件夹</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">opendir(path);</span><br></pre></td></tr></table></figure>
+
+<h4 id="关闭文件夹"><a href="#关闭文件夹" class="headerlink" title="关闭文件夹"></a>关闭文件夹</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">closedir(path);</span><br></pre></td></tr></table></figure>
+
+<h4 id="读取文件夹"><a href="#读取文件夹" class="headerlink" title="读取文件夹"></a>读取文件夹</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">readdir(path);</span><br></pre></td></tr></table></figure>
+
+<h4 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">unlink($filename);</span><br></pre></td></tr></table></figure>
+
+<h4 id="拷贝文件"><a href="#拷贝文件" class="headerlink" title="拷贝文件"></a>拷贝文件</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">copy ($source, $dest);</span><br></pre></td></tr></table></figure>
+
+<h4 id="重命名一个文件或目录"><a href="#重命名一个文件或目录" class="headerlink" title="重命名一个文件或目录"></a>重命名一个文件或目录</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">rename ($oldname,$newname)</span><br></pre></td></tr></table></figure>
+
+<h3 id="文件时间和大小"><a href="#文件时间和大小" class="headerlink" title="文件时间和大小"></a>文件时间和大小</h3><h4 id="文件的创建时间"><a href="#文件的创建时间" class="headerlink" title="文件的创建时间"></a>文件的创建时间</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">filectime($filename);</span><br></pre></td></tr></table></figure>
+
+<h4 id="文件的修改时间"><a href="#文件的修改时间" class="headerlink" title="文件的修改时间"></a>文件的修改时间</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">filemtime($filename);</span><br></pre></td></tr></table></figure>
+
+<h4 id="文件的最后访问时间"><a href="#文件的最后访问时间" class="headerlink" title="文件的最后访问时间"></a>文件的最后访问时间</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">fileatime($filename);</span><br></pre></td></tr></table></figure>
+
+<p><strong>文件大小</strong></p>
+<p>byte是最小单位</p>
+<p>1024b = 1kb</p>
+<p>1024kb = 1mb</p>
+<p>1024mb = 1GB</p>
+<p>1024GB = 1TB</p>
+<h4 id="统计文件大小"><a href="#统计文件大小" class="headerlink" title="统计文件大小"></a>统计文件大小</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">filesize($filename);</span><br></pre></td></tr></table></figure>
+
+<h3 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h3><h4 id="1、准备form表单"><a href="#1、准备form表单" class="headerlink" title="1、准备form表单"></a>1、准备form表单</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">&lt;form method=<span class="string">"post"</span>  enctype = <span class="string">"multipart/form-data"</span>&gt;</span><br><span class="line">    </span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、判断错误号"><a href="#2、判断错误号" class="headerlink" title="2、判断错误号"></a>2、判断错误号</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$file[<span class="string">'error'</span>]</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、判断文件是否超过了你指定的大小"><a href="#3、判断文件是否超过了你指定的大小" class="headerlink" title="3、判断文件是否超过了你指定的大小"></a>3、判断文件是否超过了你指定的大小</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$file[<span class="string">'size'</span>] &gt; $maxSize</span><br></pre></td></tr></table></figure>
+
+<h4 id="4、判断是否是你准许的mime类型"><a href="#4、判断是否是你准许的mime类型" class="headerlink" title="4、判断是否是你准许的mime类型"></a>4、判断是否是你准许的mime类型</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">in_array($file[<span class="string">'type'</span>], $allowMine)</span><br></pre></td></tr></table></figure>
+
+<h4 id="5、生成新的文件路径，或者是新的文件名"><a href="#5、生成新的文件路径，或者是新的文件名" class="headerlink" title="5、生成新的文件路径，或者是新的文件名"></a>5、生成新的文件路径，或者是新的文件名</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$info = pathinfo($file[<span class="string">'name'</span>]);</span><br><span class="line">$subFix = $info[<span class="string">'extension'</span>];</span><br><span class="line">in_array($subFix, $allowSub)</span><br></pre></td></tr></table></figure>
+
+<h4 id="6、判断是否是上传文件"><a href="#6、判断是否是上传文件" class="headerlink" title="6、判断是否是上传文件"></a>6、判断是否是上传文件</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">is_uploaded_file($file[<span class="string">'tmp_name'</span>])</span><br></pre></td></tr></table></figure>
+
+<h4 id="7、移动文件"><a href="#7、移动文件" class="headerlink" title="7、移动文件"></a>7、移动文件</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">move_uploaded_file($file[<span class="string">'tmp_name'</span>], $path.$newName)</span><br></pre></td></tr></table></figure>
+
+<p>注：</p>
+<p>要开启</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">file_uploads = On;</span><br></pre></td></tr></table></figure>
+
+<p>限定你上传文件的大小</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">upload_max_filesize = <span class="number">1024</span>;</span><br></pre></td></tr></table></figure>
+
+<p>上传的临时文件目录</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">upload_tmp_dir = <span class="string">"D:/wamp64/tmp"</span>;</span><br></pre></td></tr></table></figure>
+
+<p>允许同时上传的个数</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">max_file_uploads = <span class="number">20</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="文件下载"><a href="#文件下载" class="headerlink" title="文件下载"></a>文件下载</h3><h4 id="1、告知你的浏览器文件类型"><a href="#1、告知你的浏览器文件类型" class="headerlink" title="1、告知你的浏览器文件类型"></a>1、告知你的浏览器文件类型</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">header(<span class="string">'Content-type:image/jpeg'</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、告知附件"><a href="#2、告知附件" class="headerlink" title="2、告知附件"></a>2、告知附件</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">header(<span class="string">'Content-Disposition: attachment; filename="new.jpg"'</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、告知大小"><a href="#3、告知大小" class="headerlink" title="3、告知大小"></a>3、告知大小</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">header(<span class="string">'Content-Length'</span>.filesize(<span class="string">'image.jpg'</span>));</span><br></pre></td></tr></table></figure>
+
+<h4 id="4、输出内容"><a href="#4、输出内容" class="headerlink" title="4、输出内容"></a>4、输出内容</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">readfile(<span class="string">'image.jpg'</span>);</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>PHP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>正则表达式</title>
+    <url>/2020/07/12/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
+    <content><![CDATA[<h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><h3 id="组成部分"><a href="#组成部分" class="headerlink" title="组成部分"></a>组成部分</h3><p>1、定界符</p>
+<p>2、原子</p>
+<p>3、元字符</p>
+<p>4、模式修正符</p>
+<a id="more"></a>
+
+<h3 id="定界符"><a href="#定界符" class="headerlink" title="定界符"></a>定界符</h3><p>有哪些可以作为定界符？</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F; &#x2F; @ @ # # $ $ % %</span><br></pre></td></tr></table></figure>
+
+<p>推荐使用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h3 id="原子"><a href="#原子" class="headerlink" title="原子"></a>原子</h3><p>就是正则表达式中最小的一个单位</p>
+<h4 id="0-9-之间的纯数字"><a href="#0-9-之间的纯数字" class="headerlink" title="0-9 之间的纯数字"></a>0-9 之间的纯数字</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">\d</span><br></pre></td></tr></table></figure>
+
+<h4 id="非数字-0-9"><a href="#非数字-0-9" class="headerlink" title="非数字 = /[^0-9]/"></a>非数字 = /[^0-9]/</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">\D</span><br></pre></td></tr></table></figure>
+
+<h4 id="0-9-a-z-A-Z"><a href="#0-9-a-z-A-Z" class="headerlink" title="0-9 a-z A-Z _"></a>0-9 a-z A-Z _</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">\w</span><br></pre></td></tr></table></figure>
+
+<h4 id="非0-9-a-z-A-Z-a-zA-Z0-9"><a href="#非0-9-a-z-A-Z-a-zA-Z0-9" class="headerlink" title="非0-9 a-z A-Z _ = /[^a-zA-Z0-9_]/"></a>非0-9 a-z A-Z _ = /[^a-zA-Z0-9_]/</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">\W</span><br></pre></td></tr></table></figure>
+
+<h4 id="代表所有的空格-n-回车-t-tab-制表符-r换行"><a href="#代表所有的空格-n-回车-t-tab-制表符-r换行" class="headerlink" title="代表所有的空格 \n 回车 \t tab(制表符) \r换行"></a>代表所有的空格 \n 回车 \t tab(制表符) \r换行</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">\s</span><br></pre></td></tr></table></figure>
+
+<h4 id="非所有的空格-n-回车-t-tab-r换行"><a href="#非所有的空格-n-回车-t-tab-r换行" class="headerlink" title="非所有的空格 \n 回车 \t tab \r换行"></a>非所有的空格 \n 回车 \t tab \r换行</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">\S</span><br></pre></td></tr></table></figure>
+
+<h4 id="原子表"><a href="#原子表" class="headerlink" title="原子表"></a>原子表</h4><p>就是一系列的原子 <code>[]</code></p>
+<h5 id="只要是数字就可以匹配到"><a href="#只要是数字就可以匹配到" class="headerlink" title="只要是数字就可以匹配到"></a>只要是数字就可以匹配到</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[0-9]</span><br></pre></td></tr></table></figure>
+
+<h5 id="只要是小写字母就可以匹配到"><a href="#只要是小写字母就可以匹配到" class="headerlink" title="只要是小写字母就可以匹配到"></a>只要是小写字母就可以匹配到</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[a-z]</span><br></pre></td></tr></table></figure>
+
+<h5 id="只要是大写字母就可以匹配到"><a href="#只要是大写字母就可以匹配到" class="headerlink" title="只要是大写字母就可以匹配到"></a>只要是大写字母就可以匹配到</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[A-Z]</span><br></pre></td></tr></table></figure>
+
+<h4 id="抑扬符"><a href="#抑扬符" class="headerlink" title="抑扬符"></a>抑扬符</h4><h5 id="取反和以什么开始，配合原子表使用"><a href="#取反和以什么开始，配合原子表使用" class="headerlink" title="取反和以什么开始，配合原子表使用"></a>取反和以什么开始，配合原子表使用</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">^</span><br></pre></td></tr></table></figure>
+
+<h5 id="只要是a-z之间的小写字母开始的都能匹配到"><a href="#只要是a-z之间的小写字母开始的都能匹配到" class="headerlink" title="只要是a-z之间的小写字母开始的都能匹配到"></a>只要是a-z之间的小写字母开始的都能匹配到</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">^[a-z]</span><br></pre></td></tr></table></figure>
+
+<h5 id="非a-z之间的所有的小写字母"><a href="#非a-z之间的所有的小写字母" class="headerlink" title="非a-z之间的所有的小写字母"></a>非a-z之间的所有的小写字母</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[^a-z]</span><br></pre></td></tr></table></figure>
+
+<h5 id="匹配所有"><a href="#匹配所有" class="headerlink" title="匹配所有"></a>匹配所有</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.</span><br></pre></td></tr></table></figure>
+
+<p>除了 \n 回车以外的字符都可以匹配到</p>
+<h3 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h3><p>就是修饰原子的，在原子的基础之上，再加以修饰，效果累加</p>
+<h4 id="前面的原子出现零次或者多次-零次返回空字符串-多次返回所有（贪婪）"><a href="#前面的原子出现零次或者多次-零次返回空字符串-多次返回所有（贪婪）" class="headerlink" title="前面的原子出现零次或者多次 零次返回空字符串 多次返回所有（贪婪）"></a>前面的原子出现零次或者多次 零次返回空字符串 多次返回所有（贪婪）</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* &#x3D; &#123;0, &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="前面的原子出现一次或者多次-零次返回匹配失败"><a href="#前面的原子出现一次或者多次-零次返回匹配失败" class="headerlink" title="前面的原子出现一次或者多次 零次返回匹配失败"></a>前面的原子出现一次或者多次 零次返回匹配失败</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">+ &#x3D; &#123;1, &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="前面的原子出现零次或者一次-零次返回空字符串-一次返回出来一个"><a href="#前面的原子出现零次或者一次-零次返回空字符串-一次返回出来一个" class="headerlink" title="前面的原子出现零次或者一次 零次返回空字符串 一次返回出来一个"></a>前面的原子出现零次或者一次 零次返回空字符串 一次返回出来一个</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">？ &#x3D; &#123;0, 1&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="以什么结尾"><a href="#以什么结尾" class="headerlink" title="以什么结尾"></a>以什么结尾</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$&#96; 或者 &#96;|</span><br></pre></td></tr></table></figure>
+
+<h4 id="改变优先级将某一块作为一个整体"><a href="#改变优先级将某一块作为一个整体" class="headerlink" title="改变优先级将某一块作为一个整体"></a>改变优先级将某一块作为一个整体</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">()</span><br></pre></td></tr></table></figure>
+
+<h4 id="匹配长度"><a href="#匹配长度" class="headerlink" title="匹配长度"></a>匹配长度</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="模式修正符"><a href="#模式修正符" class="headerlink" title="模式修正符"></a>模式修正符</h3><p>对前面的规则再次进行修饰，在原有的功能之上再加修饰，效果累加</p>
+<h4 id="不区分大小写"><a href="#不区分大小写" class="headerlink" title="不区分大小写"></a>不区分大小写</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">i</span><br></pre></td></tr></table></figure>
+
+<h4 id="视为多行"><a href="#视为多行" class="headerlink" title="视为多行"></a>视为多行</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">m</span><br></pre></td></tr></table></figure>
+
+<h4 id="视为单行"><a href="#视为单行" class="headerlink" title="视为单行"></a>视为单行</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">s</span><br></pre></td></tr></table></figure>
+
+<h4 id="取消贪婪"><a href="#取消贪婪" class="headerlink" title="取消贪婪"></a>取消贪婪</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">U</span><br></pre></td></tr></table></figure>
+
+<h4 id="组合使用"><a href="#组合使用" class="headerlink" title="组合使用"></a>组合使用</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.*</span><br><span class="line">.*?</span><br><span class="line">.*+</span><br><span class="line">imsU</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>PHP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CentOS6关闭SELINUX和防火墙</title>
+    <url>/2020/07/12/CentOS6%E5%85%B3%E9%97%ADSELINUX%E5%92%8C%E9%98%B2%E7%81%AB%E5%A2%99/</url>
+    <content><![CDATA[<h1 id="CentOS6-关闭-SELINUX-和防火墙"><a href="#CentOS6-关闭-SELINUX-和防火墙" class="headerlink" title="CentOS6 关闭 SELINUX 和防火墙"></a>CentOS6 关闭 SELINUX 和防火墙</h1><h2 id="关闭SELINUX"><a href="#关闭SELINUX" class="headerlink" title="关闭SELINUX"></a>关闭SELINUX</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vi &#x2F;etc&#x2F;selinux&#x2F;config</span><br><span class="line">#SELINUX&#x3D;enforcing #注释掉</span><br><span class="line">#SELINUXTYPE&#x3D;targeted #注释掉</span><br><span class="line">SELINUX&#x3D;disabled #增加</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h2 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h2><p>关闭命令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">service iptables stop</span><br></pre></td></tr></table></figure>
+
+<p>永久关闭防火墙：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">chkconfig iptables off</span><br></pre></td></tr></table></figure>
+
+<p>运行完成后查看防火墙关闭状态</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">service iptables status</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CGI、FastCGI和PHP-fpm之间的关系</title>
+    <url>/2020/07/12/CGI%E3%80%81FastCGI%E5%92%8CPHP-fpm%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/</url>
+    <content><![CDATA[<h1 id="CGI、FastCGI和PHP-fpm之间的关系"><a href="#CGI、FastCGI和PHP-fpm之间的关系" class="headerlink" title="CGI、FastCGI和PHP-fpm之间的关系"></a>CGI、FastCGI和PHP-fpm之间的关系</h1><p>Q：</p>
+<p>网上有的说，fastcgi是一个协议，php-fpm实现了这个协议；</p>
+<p>有的说，php-fpm是fastcgi进程的管理器，用来管理fastcgi进程的；</p>
+<p>有的说，php-fpm是php内核的一个补丁；</p>
+<p>有的说，修改了php.ini配置文件后，没办法平滑重启，所以就诞生了php-fpm；</p>
+<p>还有的说PHP-CGI是PHP自带的FastCGI管理器，那这样的话干吗又弄个php-fpm出来？</p>
+<a id="more"></a>
+
+<p>A：</p>
+<p>首先，CGI是干嘛的？</p>
+<p>CGI是为了保证web server传递过来的数据是标准格式的，方便CGI程序的编写者。</p>
+<blockquote>
+<p>web server（比如说nginx）只是内容的分发者。比如，如果请求<code>/index.html</code>，那么web server会去文件系统中找到这个文件，发送给浏览器，这里分发的是静态数据。好了，如果现在请求的是<code>/index.php</code>，根据配置文件，nginx知道这个不是静态文件，需要去找PHP解析器来处理，那么他会把这个请求简单处理后交给PHP解析器。Nginx会传哪些数据给PHP解析器呢？url要有吧，查询字符串也得有吧，POST数据也要有，HTTP header不能少吧，好的，CGI就是规定要传哪些数据、以什么样的格式传递给后方处理这个请求的协议。仔细想想，你在PHP代码中使用的用户从哪里来的。</p>
+<p>当web server收到<code>/index.php</code>这个请求后，会启动对应的CGI程序，这里就是PHP的解析器。接下来PHP解析器会解析php.ini文件，初始化执行环境，然后处理请求，再以规定CGI规定的格式返回处理后的结果，退出进程。web server再把结果返回给浏览器。</p>
+</blockquote>
+<p>好了，CGI是个协议，跟进程什么的没关系。</p>
+<p>那fastcgi又是什么呢？Fastcgi是用来提高CGI程序性能的。</p>
+<blockquote>
+<p>提高性能，那么CGI程序的性能问题在哪呢？”PHP解析器会解析php.ini文件，初始化执行环境”，就是这里了。标准的CGI对每个请求都会执行这些步骤（不闲累啊！启动进程很累的说！），所以处理每个时间的时间会比较长。这明显不合理嘛！那么Fastcgi是怎么做的呢？首先，Fastcgi会先启一个master，解析配置文件，初始化执行环境，然后再启动多个worker。当请求过来时，master会传递给一个worker，然后立即可以接受下一个请求。这样就避免了重复的劳动，效率自然是高。而且当worker不够用时，master可以根据配置预先启动几个worker等着；当然空闲worker太多时，也会停掉一些，这样就提高了性能，也节约了资源。这就是fastcgi的对进程的管理。</p>
+</blockquote>
+<p>那PHP-FPM又是什么呢？是一个实现了Fastcgi的程序，被PHP官方收了。</p>
+<blockquote>
+<p>大家都知道，PHP的解释器是php-cgi。php-cgi只是个CGI程序，他自己本身只能解析请求，返回结果，不会进程管理（皇上，臣妾真的做不到啊！）所以就出现了一些能够调度php-cgi进程的程序，比如说由lighthttpd分离出来的spawn-fcgi。好了PHP-FPM也是这么个东东，在长时间的发展后，逐渐得到了大家的认可（要知道，前几年大家可是抱怨PHP-FPM稳定性太差的），也越来越流行。</p>
+</blockquote>
+<p>好了，最后回来解答问题。<br>网上有的说，fastcgi是一个协议，php-fpm实现了这个协议</p>
+<blockquote>
+<p>对。</p>
+</blockquote>
+<p>有的说，php-fpm是fastcgi进程的管理器，用来管理fastcgi进程的</p>
+<blockquote>
+<p>对。php-fpm的管理对象是php-cgi。但不能说php-fpm是fastcgi进程的管理器，因为前面说了fastcgi是个协议，似乎没有这么个进程存在，就算存在php-fpm也管理不了他（至少目前是）。</p>
+</blockquote>
+<p>有的说，php-fpm是php内核的一个补丁</p>
+<blockquote>
+<p>以前是对的。因为最开始的时候php-fpm没有包含在PHP内核里面，要使用这个功能，需要找到与源码版本相同的php-fpm对内核打补丁，然后再编译。后来PHP内核集成了PHP-FPM之后就方便多了，使用<code>--enalbe-fpm</code>这个编译参数即可。</p>
+</blockquote>
+<p>有的说，修改了php.ini配置文件后，没办法平滑重启，所以就诞生了php-fpm</p>
+<blockquote>
+<p>是的，修改php.ini之后，php-cgi进程的确是没办法平滑重启的。php-fpm对此的处理机制是新的worker用新的配置，已经存在的worker处理完手上的活就可以歇着了，通过这种机制来平滑过度。</p>
+</blockquote>
+<p>还有的说PHP-CGI是PHP自带的FastCGI管理器，那这样的话干吗又弄个php-fpm出来</p>
+<blockquote>
+<p>不对。php-cgi只是解释PHP脚本的程序而已。</p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>PHP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Laravel 基础</title>
+    <url>/2020/07/12/Laravel-%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<h1 id="Laravel"><a href="#Laravel" class="headerlink" title="Laravel"></a>Laravel</h1><h2 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h2><ul>
+<li><p>文件位置</p>
+<p>routes/web.php</p>
+</li>
+<li><p>基本路由</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//get路由</span></span><br><span class="line">Route::get(<span class="string">'basic1'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'basic1'</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//post路由</span></span><br><span class="line">Route::post(<span class="string">'basic2'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'basic2'</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+</li>
+<li><p>多请求路由</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//指定请求</span></span><br><span class="line">Route::match([<span class="string">'get'</span>,<span class="string">'post'</span>], <span class="string">'multy1'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'multy1'</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//所有请求</span></span><br><span class="line">Route::any(<span class="string">'multy2'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'multy2'</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>路由参数</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//地址栏输入user/sean 页面输出sean</span></span><br><span class="line">Route::get(<span class="string">'user/&#123;name&#125;'</span>, <span class="function"><span class="keyword">function</span><span class="params">($name)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> $name;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//参数默认值</span></span><br><span class="line">Route::get(<span class="string">'user/&#123;name?&#125;'</span>, <span class="function"><span class="keyword">function</span><span class="params">($name = <span class="string">'sean'</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> $name;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//正则限制参数格式</span></span><br><span class="line">Route::get(<span class="string">'user/&#123;name?&#125;'</span>, <span class="function"><span class="keyword">function</span><span class="params">($name = <span class="string">'sean'</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> $name;</span><br><span class="line">&#125;)-&gt;where(<span class="string">'name'</span>, <span class="string">'[A-Za-z]+'</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>路由别名</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">Route::get(<span class="string">'user/member'</span>, [<span class="string">'as'</span> =&gt; <span class="string">'center'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> route(<span class="string">'center'</span>);</span><br><span class="line">&#125;]);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>路由群组</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">Route::group([<span class="string">'prefix'</span> =&gt; <span class="string">'member'</span>], <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//地址栏 member/user/id/1</span></span><br><span class="line">    Route::get(<span class="string">'user/id/&#123;id&#125;'</span>, <span class="function"><span class="keyword">function</span><span class="params">($id)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> $id;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>路由输出视图</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">Route::get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> view(<span class="string">'welcome'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="控制器"><a href="#控制器" class="headerlink" title="控制器"></a>控制器</h2><ul>
+<li><p>新建控制器</p>
+<ol>
+<li>文件位置：app/Http/Controllers/</li>
+<li>命名规范：MemberController.php</li>
+<li>类继承自：App\Http\Controllers\Controller</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">App</span>\<span class="title">Http</span>\<span class="title">Controllers</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MemberController</span> <span class="keyword">extends</span> <span class="title">Controller</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">info</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'info'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>控制器关联路由</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//关联方式1</span></span><br><span class="line">Route::get(<span class="string">'member/info'</span>, <span class="string">'MemberController@info'</span>);</span><br><span class="line"><span class="comment">//关联方式2</span></span><br><span class="line">Route::any(<span class="string">'member/info'</span>, [</span><br><span class="line">    <span class="string">'uses'</span> =&gt; <span class="string">'MemberController@info'</span></span><br><span class="line">]);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关联后，路由的特性如何用</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//route</span></span><br><span class="line">Route::any(<span class="string">'member/info/&#123;id&#125;'</span>, [</span><br><span class="line">    <span class="string">'uses'</span> =&gt; <span class="string">'MemberController@info'</span></span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line"><span class="comment">//controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">info</span><span class="params">($id)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'id='</span>.$id;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><ul>
+<li><p>新建视图</p>
+<ol>
+<li>文件位置：resources/views</li>
+<li>命名规则：info.blade.php</li>
+<li>一个控制器对应一个同名文件夹：resources/views/member/info.blade.php</li>
+</ol>
+</li>
+<li><p>控制器和视图关联</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//route</span></span><br><span class="line">Route::any(<span class="string">'member/info'</span>, [</span><br><span class="line">    <span class="string">'uses'</span> =&gt; <span class="string">'MemberController@info'</span></span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line"><span class="comment">//controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">info</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> view(<span class="string">'info'</span>, [</span><br><span class="line">        <span class="string">'name'</span> =&gt; <span class="string">'孔维民'</span></span><br><span class="line">    ]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//view</span></span><br><span class="line">&#123;&#123;$name&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><ul>
+<li><p>新建模型</p>
+<ol>
+<li>文件位置：app/</li>
+<li>数据库一张表对应一个模型</li>
+<li>数据库表中添加 created_at 创建事件、updated_at 更新时间字段，可自动维护</li>
+<li>类继承自：Illuminate\Database\Eloquent\Model</li>
+<li>模型中方法使用静态方法</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">App</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Database</span>\<span class="title">Eloquent</span>\<span class="title">Model</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">extends</span> <span class="title">Model</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getMember</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'sean'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="DB-facade-操作数据库"><a href="#DB-facade-操作数据库" class="headerlink" title="DB facade 操作数据库"></a>DB facade 操作数据库</h2><ul>
+<li><p>数据库配置</p>
+<p>config/database.php</p>
+<p>/.env</p>
+</li>
+<li><p>命名空间</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">Illuminate\Support\Facades\DB</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询数据</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//返回二维数组</span></span><br><span class="line">DB::select(<span class="string">'select * from laravel_user where id=?'</span>, [<span class="string">'1'</span>]);</span><br></pre></td></tr></table></figure>
+
+<p><strong>注：</strong>问号占位符，第二个参数使用数组形式补充占位，这样可以防止sql注入</p>
+</li>
+<li><p>新增数据</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//返回新增是否成功</span></span><br><span class="line">DB::insert(<span class="string">'insert into laravel_user (name) values (?)'</span>, [<span class="string">'kwm'</span>])</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改数据</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//返回受影响行数</span></span><br><span class="line">DB::update(<span class="string">'update laravel_user set age= ? where id= ?'</span>, [<span class="number">18</span>, <span class="number">5</span>])</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除数据</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//返回受影响行数</span></span><br><span class="line">DB::delete(<span class="string">'delete from laravel_user where id = ?'</span>, [<span class="number">5</span>]);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="查询构造器操作数据库"><a href="#查询构造器操作数据库" class="headerlink" title="查询构造器操作数据库"></a>查询构造器操作数据库</h2><ul>
+<li><p>命名空间</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">Illuminate\Support\Facades\DB</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询数据</p>
+<ol>
+<li><p>get()</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//获取全部数据，返回对象</span></span><br><span class="line">$user = DB::table(<span class="string">'user'</span>)-&gt;get();</span><br><span class="line"><span class="comment">//将数据转为二维索引数组</span></span><br><span class="line"><span class="comment">//每个一维数组中的值为对象</span></span><br><span class="line">collect($user)-&gt;toArray();</span><br><span class="line"><span class="comment">//将数据转为json</span></span><br><span class="line">collect($user)-&gt;toJson();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>first()</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//获取结果集的第一条数据，通常配合where或orderBy使用</span></span><br><span class="line">DB::table(<span class="string">'user'</span>)-&gt;first();</span><br><span class="line"><span class="comment">//将数据转为一维关联数组</span></span><br><span class="line">collect($user)-&gt;toArray();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>where()</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//获取id为1的数据</span></span><br><span class="line">DB::table(<span class="string">'user'</span>)-&gt;where(<span class="string">'id'</span>, <span class="number">1</span>)-&gt;get();</span><br><span class="line"><span class="comment">//获取id大于1的数据</span></span><br><span class="line">DB::table(<span class="string">'user'</span>)-&gt;where(<span class="string">'id'</span>, <span class="string">'&gt;'</span>, <span class="number">1</span>)-&gt;get();</span><br><span class="line"><span class="comment">//获取id不等于1，age不等于18的数据</span></span><br><span class="line"><span class="comment">//字符串占位符的方式要用whereRaw</span></span><br><span class="line">DB::table(<span class="string">'user'</span>)-&gt;whereRaw(<span class="string">'id != ? and age != ?'</span>, [<span class="number">1</span>, <span class="number">18</span>])-&gt;get()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>pluck()</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//获取表中所有的name字段的值</span></span><br><span class="line">$user = DB::table(<span class="string">'user'</span>)-&gt;pluck(<span class="string">'name'</span>);</span><br><span class="line"><span class="comment">//获取表中所有的name字段的值，并把id设置为数组的键</span></span><br><span class="line">$user = DB::table(<span class="string">'user'</span>)-&gt;pluck(<span class="string">'name'</span>, <span class="string">'id'</span>);</span><br><span class="line"><span class="comment">//将数据转为一维关联数组</span></span><br><span class="line">collect($user)-&gt;toArray();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>select()</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//获取id，name，age三个字段表中所有的值</span></span><br><span class="line">DB::table(<span class="string">'user'</span>)-&gt;select(<span class="string">'id'</span>, <span class="string">'name'</span>, <span class="string">'age'</span>)-&gt;get();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>chunk()</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//将数据分段处理，每次处理2条</span></span><br><span class="line">DB::table(<span class="string">'user'</span>)-&gt;chunk(<span class="number">2</span>, <span class="function"><span class="keyword">function</span> <span class="params">($user)</span> </span>&#123;</span><br><span class="line">    var_dump($user);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>新增数据</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//返回是否成功</span></span><br><span class="line">DB::table(<span class="string">'user'</span>)-&gt;insert([<span class="string">'name'</span> =&gt; <span class="string">'kwm'</span>]);</span><br><span class="line"><span class="comment">//返回自增id</span></span><br><span class="line">DB::table(<span class="string">'user'</span>)-&gt;insertGetId([<span class="string">'name'</span> =&gt; <span class="string">'kwm'</span>]);</span><br></pre></td></tr></table></figure>
+
+<p><strong>注：</strong>如果在配置文件中添加了表前缀，这里就不用写前缀了</p>
+</li>
+<li><p>修改数据</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//返回受影响行数</span></span><br><span class="line">DB::table(<span class="string">'user'</span>)-&gt;where(<span class="string">'id'</span>, <span class="number">3</span>)-&gt;update([<span class="string">'age'</span> =&gt; <span class="number">20</span>]);</span><br><span class="line"><span class="comment">//自增1，返回受影响行数</span></span><br><span class="line">DB::table(<span class="string">'user'</span>)-&gt;where(<span class="string">'id'</span>, <span class="number">3</span>)-&gt;increment(<span class="string">'age'</span>); </span><br><span class="line"><span class="comment">//增加5</span></span><br><span class="line">DB::table(<span class="string">'user'</span>)-&gt;where(<span class="string">'id'</span>, <span class="number">3</span>)-&gt;increment(<span class="string">'age'</span>, <span class="number">3</span>); </span><br><span class="line"><span class="comment">//自减1，返回受影响行数</span></span><br><span class="line">DB::table(<span class="string">'user'</span>)-&gt;where(<span class="string">'id'</span>, <span class="number">3</span>)-&gt;decrement(<span class="string">'age'</span>); </span><br><span class="line"><span class="comment">//减少5，并将name改为kongweimin</span></span><br><span class="line">DB::table(<span class="string">'user'</span>)-&gt;where(<span class="string">'id'</span>, <span class="number">3</span>)-&gt;decrement(<span class="string">'age'</span>, <span class="number">3</span>, [<span class="string">'name'</span> =&gt; <span class="string">'kongweimin'</span>]);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除数据</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//返回受影响行数</span></span><br><span class="line">DB::table(<span class="string">'user'</span>)-&gt;where(<span class="string">'id'</span>, <span class="number">7</span>)-&gt;delete();</span><br><span class="line"><span class="comment">//清空表，并将自增id置0</span></span><br><span class="line">DB::table(<span class="string">'user'</span>)-&gt;truncate();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>聚合函数</p>
+<ol>
+<li><p>count()</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//返回数字，总行数</span></span><br><span class="line">DB::table(<span class="string">'user'</span>)-&gt;count()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>max()</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//返回数字，该列的最大值</span></span><br><span class="line">DB::table(<span class="string">'user'</span>)-&gt;max(<span class="string">'age'</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>min()</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//返回数字，该列的最小值</span></span><br><span class="line">DB::table(<span class="string">'user'</span>)-&gt;min(<span class="string">'age'</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>avg()</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//返回数字字符串，该列的平均值</span></span><br><span class="line">DB::table(<span class="string">'user'</span>)-&gt;avg(<span class="string">'age'</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>sum()</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//返回数字字符串，该列的和</span></span><br><span class="line">DB::table(<span class="string">'user'</span>)-&gt;sum(<span class="string">'age'</span>);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="Eloquent-ORM操作数据库"><a href="#Eloquent-ORM操作数据库" class="headerlink" title="Eloquent ORM操作数据库"></a>Eloquent ORM操作数据库</h2><p><strong>利用模型类操作数据库，查询构造器的所有方法在这里都可以使用</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">App</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Database</span>\<span class="title">Eloquent</span>\<span class="title">Model</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">extends</span> <span class="title">Model</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="comment">//指定表名</span></span><br><span class="line">    <span class="keyword">protected</span> $table = <span class="string">'user'</span>;</span><br><span class="line">    </span><br><span class="line">	<span class="comment">//指定主键</span></span><br><span class="line">    <span class="keyword">protected</span> $primaryKey = <span class="string">'id'</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//create()方法允许添加的字段</span></span><br><span class="line">    <span class="keyword">protected</span> $fillable = [<span class="string">'name'</span>, <span class="string">'age'</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//不需要自动维护created_at、updated_at</span></span><br><span class="line">    <span class="keyword">protected</span> $timestamps = <span class="keyword">false</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//将created_at、updated_at字段的值改为时间戳</span></span><br><span class="line">    <span class="comment">//不写此方法，值为年份</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getDateFormat</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> time();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//获取created_at、updated_at字段时不做处理</span></span><br><span class="line">    <span class="comment">//不写此方法，会自动格式化</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">asDateTime</span><span class="params">($value)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> $value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>查询数据</p>
+<ol>
+<li><p>all()</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//获取全部数据，返回对象</span></span><br><span class="line">$user = User::all();</span><br><span class="line"><span class="comment">//将数据转为二维索引数组</span></span><br><span class="line"><span class="comment">//每个一维数组中的值为数组</span></span><br><span class="line">collect($user)-&gt;toArray();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>find()</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//根据主键获取数据，可直接使用toArray()将对象转为一维数组</span></span><br><span class="line">User::find(<span class="number">1</span>)-&gt;toArray()</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>新增数据</p>
+<ol>
+<li><p>save()</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//新建模型对象</span></span><br><span class="line">$user = <span class="keyword">new</span> User();</span><br><span class="line"><span class="comment">//数据库字段赋值</span></span><br><span class="line">$user-&gt;name = <span class="string">'yjy'</span>;</span><br><span class="line">$user-&gt;age = <span class="number">18</span>;</span><br><span class="line"><span class="comment">//保存该对象</span></span><br><span class="line"><span class="comment">//返回bool</span></span><br><span class="line">$user-&gt;save();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>create()</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//可添加多条</span></span><br><span class="line"><span class="comment">//要在model中添加$fillable属性</span></span><br><span class="line">$user = User::create(</span><br><span class="line">            [<span class="string">'name'</span> =&gt; <span class="string">'yjy1'</span>, <span class="string">'age'</span> =&gt; <span class="number">18</span>]</span><br><span class="line">        );</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>修改数据</p>
+<ol>
+<li><p>save()</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//获取要修改的数据</span></span><br><span class="line">$user = User::find(<span class="number">11</span>);</span><br><span class="line"><span class="comment">//修改字段</span></span><br><span class="line">$user-&gt;name = <span class="string">'尹娇阳'</span>;</span><br><span class="line"><span class="comment">//保存，返回bool</span></span><br><span class="line">$user-&gt;save();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>update()</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//根据条件批量修改</span></span><br><span class="line"><span class="comment">//返回受影响行数</span></span><br><span class="line">User::where(<span class="string">'id'</span>, <span class="string">'&gt;'</span>, <span class="number">8</span>)-&gt;update([<span class="string">'age'</span> =&gt; <span class="number">20</span>])</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>删除数据</p>
+<ol>
+<li><p>delete()</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//获取要删除的数据对象</span></span><br><span class="line">$user = User::find(<span class="number">11</span>);</span><br><span class="line"><span class="comment">//执行删除，返回bool</span></span><br><span class="line">$user-&gt;delete();</span><br><span class="line"></span><br><span class="line"><span class="comment">//根据条件批量删除</span></span><br><span class="line"><span class="comment">//返回受影响行数</span></span><br><span class="line">User::where(<span class="string">'id'</span>, <span class="string">'&gt;'</span>, <span class="number">5</span>)-&gt;delete();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>destroy()</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//根据主键删除，参数可以为单个id或id数组</span></span><br><span class="line"><span class="comment">//返回受影响行数</span></span><br><span class="line">User::destroy(<span class="number">12</span>);</span><br><span class="line">User::destroy([<span class="number">13</span>,<span class="number">14</span>]);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="Blade模板引擎"><a href="#Blade模板引擎" class="headerlink" title="Blade模板引擎"></a>Blade模板引擎</h2><ul>
+<li><p>模版继承</p>
+<ol>
+<li><p>主模版</p>
+<p>模版地址：/resources/views/layouts/app.blade.php</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>App Name - @yield('title')<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">@section('sidebar')</span><br><span class="line">    侧边栏</span><br><span class="line">@show</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">    @yield('content', '默认主内容区域')</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>子模版</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 使用extends()方法继承主模版 --&gt;</span></span><br><span class="line">@extends('layouts.app')</span><br><span class="line"></span><br><span class="line">@section('title', '页面标题')</span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 加parent为追加主模版渲染 --&gt;</span></span><br><span class="line">@section('sidebar')</span><br><span class="line">    @parent</span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>这是在侧边栏追加的内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">@endsection</span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 覆盖主模版渲染 --&gt;</span></span><br><span class="line">@section('content')</span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>主要内容显示区域<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">@endsection</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p><strong>注：</strong>yield是不可扩展的，子模版中继承了就显示，否则就显示默认，不能使用parent</p>
+</li>
+<li><p>模版基本语法</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">@section('content')</span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>主要内容显示区域<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;$name&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;time()&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;date('Y-m-d H:i:s', time())&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- isset()的短标签语法 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;$name1 or 'default'&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    &#123;&#123;--模版注释，生成的html中不显示--&#125;&#125;</span><br><span class="line">@endsection</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>include</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">@include('layouts.common', ['msg' =&gt; '信息'])</span><br></pre></td></tr></table></figure>
+
+<p><strong>注：</strong>第二个参数是像子模版中传数据</p>
+</li>
+<li><p>if</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">@if($name == 'admin')</span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>I am admin<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">@else</span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>who am I?<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">@endif</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>foreach</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">@foreach($user as $value)</span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;$value-&gt;name&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">@endforeach</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>forelse</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">@forelse($user as $value)</span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;$value-&gt;name&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">@empty</span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>null<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">@endforelse</span><br></pre></td></tr></table></figure>
+
+<p><strong>注：</strong>自动加一层判断，数组不为空走empty上方区间，为空走empty下方区间</p>
+</li>
+<li><p>页面跳转</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;&#123;-- 路由名称跳转 --&#125;&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;&#123;url('member/url')&#125;&#125;"</span>&gt;</span>url()<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">&#123;&#123;-- 路由别名跳转 --&#125;&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;&#123;route('asUrl')&#125;&#125;"</span>&gt;</span>route()<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">&#123;&#123;-- 控制器+方法名跳转 --&#125;&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;&#123;action('MemberController@url')&#125;&#125;"</span>&gt;</span>action()<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="玩转Controller"><a href="#玩转Controller" class="headerlink" title="玩转Controller"></a>玩转Controller</h2><h3 id="Request"><a href="#Request" class="headerlink" title="Request"></a>Request</h3><ul>
+<li><p>取值</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">request</span><span class="params">(Request $request)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//获取地址栏name参数</span></span><br><span class="line">    <span class="keyword">echo</span> $request-&gt;input(<span class="string">'name'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//获取地址栏name参数，若无该参数，则显示默认值</span></span><br><span class="line">    <span class="keyword">echo</span> $request-&gt;input(<span class="string">'name'</span>, <span class="string">'默认值'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断是否有这个参数</span></span><br><span class="line">    <span class="keyword">if</span> ($request-&gt;has(<span class="string">'name'</span>)) &#123;</span><br><span class="line">        <span class="keyword">echo</span> $request-&gt;input(<span class="string">'name'</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'无该参数'</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//获取所有参数</span></span><br><span class="line">    $res = $request-&gt;all();</span><br><span class="line">    var_dump($res);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>判断请求类型</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">request</span><span class="params">(Request $request)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//获取请求类型</span></span><br><span class="line">    <span class="keyword">echo</span> $request-&gt;method();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断当前请求是什么类型</span></span><br><span class="line">    <span class="keyword">if</span> ($request-&gt;isMethod(<span class="string">'GET'</span>)) &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'is GET'</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'other'</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断当前请求是不是ajax</span></span><br><span class="line">    <span class="keyword">if</span> ($request-&gt;ajax()) &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'is ajax'</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'other'</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//判断当前请求路径</span></span><br><span class="line">    <span class="keyword">if</span> ($request-&gt;is(<span class="string">'member/*'</span>)) &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'is member/*'</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'other'</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//获取当前请求路径</span></span><br><span class="line">    <span class="keyword">echo</span> $request-&gt;url();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>Route 设置</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 设置middleware中间件</span></span><br><span class="line">Route::group([<span class="string">'middleware'</span> =&gt; [<span class="string">'web'</span>]], <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    Route::any(<span class="string">'session'</span>, [<span class="string">'uses'</span> =&gt; <span class="string">'MemberController@session'</span>]);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>HTTP request session</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//依赖注入 Request</span></span><br><span class="line"><span class="comment">//存值</span></span><br><span class="line">$request-&gt;session()-&gt;put(<span class="string">'key1'</span>, <span class="string">'value1'</span>);</span><br><span class="line"><span class="comment">//取值</span></span><br><span class="line">$request-&gt;session()-&gt;get(<span class="string">'key1'</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>session 辅助函数</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//存值</span></span><br><span class="line">session()-&gt;put(<span class="string">'key2'</span>, <span class="string">'value2'</span>);</span><br><span class="line"><span class="comment">//取值</span></span><br><span class="line">session()-&gt;get(<span class="string">'key2'</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>session 类</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Support</span>\<span class="title">Facades</span>\<span class="title">Session</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//存值</span></span><br><span class="line">Session::put(<span class="string">'key3'</span>, <span class="string">'value3'</span>);</span><br><span class="line"><span class="comment">//取值</span></span><br><span class="line">Session::get(<span class="string">'key3'</span>);</span><br><span class="line"><span class="comment">//若有值，则取值，无值取default</span></span><br><span class="line">Session::get(<span class="string">'key4'</span>, <span class="string">'default'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//存数组</span></span><br><span class="line">Session::push(<span class="string">'key5'</span>, <span class="number">1</span>);</span><br><span class="line">Session::push(<span class="string">'key5'</span>, <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取不删除</span></span><br><span class="line">Session::get(<span class="string">'key5'</span>);</span><br><span class="line"><span class="comment">//获取并删除</span></span><br><span class="line">Session::pull(<span class="string">'key5'</span>, <span class="string">'default'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取所有的session</span></span><br><span class="line">Session::all();</span><br><span class="line"></span><br><span class="line"><span class="comment">//判断session是否存在</span></span><br><span class="line">Session::has(<span class="string">'key1'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//删除session</span></span><br><span class="line">Session::forget(<span class="string">'key1'</span>);</span><br><span class="line"><span class="comment">//清空session</span></span><br><span class="line">Session::flush();</span><br><span class="line"></span><br><span class="line"><span class="comment">//暂存session（只能获取一次）</span></span><br><span class="line">Session::flash(<span class="string">'k-f'</span>, <span class="string">'v-f'</span>);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="Response"><a href="#Response" class="headerlink" title="Response"></a>Response</h2><ol>
+<li><p>视图</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> view(<span class="string">'welcome'</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>json</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$data = [</span><br><span class="line">    <span class="string">'errCode'</span> =&gt; <span class="number">1</span>,</span><br><span class="line">    <span class="string">'errMsg'</span> =&gt; <span class="string">'fatal'</span></span><br><span class="line">];</span><br><span class="line"><span class="keyword">return</span> response()-&gt;json($data);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重定向</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//重定向到指定路由</span></span><br><span class="line"><span class="comment">//参数为路由名称</span></span><br><span class="line"><span class="keyword">return</span> redirect(<span class="string">'session2'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//带有参数重定向</span></span><br><span class="line"><span class="keyword">return</span> redirect(<span class="string">'session2'</span>)-&gt;with(<span class="string">'msg'</span>, <span class="string">'success'</span>);</span><br><span class="line"><span class="comment">//获取参数（与flash类似，只能获取一次）</span></span><br><span class="line">Session::get(<span class="string">'msg'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//重定向到控制器的方法</span></span><br><span class="line"><span class="keyword">return</span> redirect()-&gt;action(<span class="string">'MemberController@session'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//重定向到路由的别名</span></span><br><span class="line"><span class="keyword">return</span> redirect()-&gt;route(<span class="string">'session'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//重定向到上级来源页</span></span><br><span class="line"><span class="keyword">return</span> redirect()-&gt;back();</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="Middleware-中间件"><a href="#Middleware-中间件" class="headerlink" title="Middleware 中间件"></a>Middleware 中间件</h2><p><strong>中间件作用</strong>：Laravel中间件提供了一个方便的机制来过滤进入应用程序的http请求</p>
+<p>情景：</p>
+<blockquote>
+<p>现在有一个活动</p>
+<p>当前日期未到活动开始日期，用户看到宣传页面（路由：member/activity0）</p>
+<p>当前日期已到活动开始日期，用户看到活动页面（路由：member/activity1、member/activity2）</p>
+</blockquote>
+<p><strong>定义一个中间件</strong></p>
+<p>文件位置：/app/Http/Middleware/Activity.php</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">App</span>\<span class="title">Http</span>\<span class="title">Middleware</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">Closure</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Activity</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="comment">//$request是一个请求</span></span><br><span class="line">    <span class="comment">//$next是继续执行$request的方法包</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">handle</span><span class="params">($request, Closure $next)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//判断当前时间是否到达活动日期</span></span><br><span class="line">        <span class="keyword">if</span> (time() &lt; strtotime(<span class="string">'2018-7-12'</span>)) &#123;</span><br><span class="line">            <span class="comment">//没有到达，跳转到宣传页面</span></span><br><span class="line">            <span class="keyword">return</span> redirect(<span class="string">'member/activity0'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">		<span class="comment">//已到达，继续执行</span></span><br><span class="line">        <span class="keyword">return</span> $next($request);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>中间件在写好后需要注册才能使用</strong></p>
+<p>注册文件位置：/app/Http/Kernel.php</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//在这个数组中添加一个键值</span></span><br><span class="line"><span class="keyword">protected</span> $routeMiddleware = [</span><br><span class="line">    ...</span><br><span class="line">    <span class="string">'activity'</span> =&gt; \App\Http\Middleware\Activity::class,</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+<p><strong>使用中间件</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//配置路由的文件中使用中间件</span></span><br><span class="line">Route::get(<span class="string">'member/activity0'</span>, [<span class="string">'uses'</span> =&gt; <span class="string">'MemberController@activity0'</span>]);</span><br><span class="line"><span class="comment">//在需要中间件的路由中设置中间件 middleware</span></span><br><span class="line">Route::group([<span class="string">'middleware'</span> =&gt; [<span class="string">'activity'</span>]], <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    Route::get(<span class="string">'member/activity1'</span>, [<span class="string">'uses'</span> =&gt; <span class="string">'MemberController@activity1'</span>]);</span><br><span class="line">    Route::get(<span class="string">'member/activity2'</span>, [<span class="string">'uses'</span> =&gt; <span class="string">'MemberController@activity2'</span>]);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><strong>关于前置中间件和后置中间件</strong></p>
+<p>区别方法：逻辑代码在请求前还是请求后</p>
+<p>刚才写的中间件的代码就是前置中间件</p>
+]]></content>
+      <tags>
+        <tag>Laravel</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Laravel Eloquent 提示和技巧</title>
+    <url>/2020/07/12/Laravel-Eloquent-%E6%8F%90%E7%A4%BA%E5%92%8C%E6%8A%80%E5%B7%A7/</url>
+    <content><![CDATA[<h1 id="Laravel-Eloquent-提示和技巧"><a href="#Laravel-Eloquent-提示和技巧" class="headerlink" title="Laravel Eloquent 提示和技巧"></a>Laravel Eloquent 提示和技巧</h1><p>Eloquent ORM 看起来像一个简单的机制，但在幕后，有很多半隐藏的功能和不太知名的方法来实现更多。在本文中，我将向您展示一些技巧。</p>
+<a id="more"></a>
+
+<h3 id="1-Increments-and-Decrements"><a href="#1-Increments-and-Decrements" class="headerlink" title="1. Increments and Decrements"></a>1. Increments and Decrements</h3><p>文章阅读量增加 1：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$article = Article::find($articleid);</span><br><span class="line">$article-&gt;readcount++;</span><br><span class="line">$article-&gt;save();</span><br></pre></td></tr></table></figure>
+
+<p>你可以这样做：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$article = Article::find($article_id);</span><br><span class="line">$article-&gt;increment(<span class="string">'read_count'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>也可以这些做：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">Article::find($article_id)-&gt;increment(<span class="string">'read_count'</span>);</span><br><span class="line">Article::find($article_id)-&gt;increment(<span class="string">'read_count'</span>, <span class="number">10</span>);      <span class="comment">// +10</span></span><br><span class="line">Product::find($produce_id)-&gt;decrement(<span class="string">'stock'</span>);               <span class="comment">// -1</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-XorY-methods"><a href="#2-XorY-methods" class="headerlink" title="2. XorY methods"></a>2. XorY methods</h3><p>Eloquent有很多功能，结合了两种方法，比如“请做X，否则做Y”。</p>
+<ol>
+<li><p>findOrFail() :</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$user = User::findOrFail($id);</span><br></pre></td></tr></table></figure>
+
+<p>等价于：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$user = User::find($id);</span><br><span class="line"><span class="keyword">if</span> (!$user)  &#123;</span><br><span class="line">    abort (<span class="number">404</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>firstOrCreate() :</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$user = User::firstOrCreate([<span class="string">'email'</span> =&gt; $email]);</span><br></pre></td></tr></table></figure>
+
+<p>等价于：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$user = User::where(<span class="string">'email'</span>, $email)-&gt;first();</span><br><span class="line"><span class="keyword">if</span> (!$user) &#123;</span><br><span class="line">        User::create([<span class="string">'email'</span> =&gt; $email]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="3-模型-boot-方法"><a href="#3-模型-boot-方法" class="headerlink" title="3. 模型 boot() 方法"></a>3. 模型 boot() 方法</h3><p>在Eloquent模型中有一个名为boot（）的方法，您可以在其中覆盖默认行为：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">extends</span> <span class="title">Model</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">boot</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">parent</span>::boot();</span><br><span class="line">        <span class="keyword">static</span>::updating(<span class="function"><span class="keyword">function</span> <span class="params">($model)</span> </span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="comment">// do some logging</span></span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可能最常见的例子之一是在创建模型对象时设置一些字段值。假设你想在那一刻生成UUID字段。</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">boot</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">parent</span>::boot();</span><br><span class="line">    <span class="keyword">static</span>::creating(<span class="function"><span class="keyword">function</span> <span class="params">($model)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        $model-&gt;uuid = (string)Uuid::generate();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-Relationship-with-conditions-and-ordering"><a href="#4-Relationship-with-conditions-and-ordering" class="headerlink" title="4. Relationship with conditions and ordering"></a>4. Relationship with conditions and ordering</h3><p>这是定义关系的典型方法：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">users</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   retrun <span class="keyword">$this</span>-&gt;hasMany(<span class="string">'App\User'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是你知道吗，此时我们已经可以添加 <strong>where</strong> 或 <strong>orderBy</strong> 了！<br>例如，如果您想要某种类型的用户（也是通过电子邮件订购）的特定关系，您可以这样做：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">approvedUsers</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   retrun <span class="keyword">$this</span>-&gt;hasMany(<span class="string">'App\User'</span>)-&gt;where(<span class="string">'approved'</span>, <span class="number">1</span>)-&gt;orderBy(<span class="string">'email'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-模型属性：timestamps-appends等。"><a href="#5-模型属性：timestamps-appends等。" class="headerlink" title="5. 模型属性：timestamps, appends等。"></a>5. 模型属性：timestamps, appends等。</h3><p>Eloquent模型有一些“参数”，以该类的属性形式出现。最受欢迎的可能是这些：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">extends</span> <span class="title">Model</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> $table = <span class="string">'users'</span>;</span><br><span class="line">    <span class="keyword">protected</span> $fillable = [<span class="string">'email'</span>, <span class="string">'password'</span>]; <span class="comment">// which fields can be filled with User::create()</span></span><br><span class="line">    <span class="keyword">protected</span> $dates = [<span class="string">'created_at'</span>, <span class="string">'deleted_at'</span>]; <span class="comment">// which fields will be Carbon-ized</span></span><br><span class="line">    <span class="keyword">protected</span> $appends = [<span class="string">'field1'</span>, <span class="string">'field2'</span>]; <span class="comment">// additional values returned in JSON</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但等等，还有更多：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="keyword">protected</span> $primaryKey = <span class="string">'uuid'</span>; <span class="comment">// it doesn't have to be "id"</span></span><br><span class="line"><span class="keyword">public</span> $incrementing = <span class="keyword">false</span>; <span class="comment">// and it doesn't even have to be auto-incrementing!</span></span><br><span class="line"><span class="keyword">protected</span> $perPage = <span class="number">25</span>; <span class="comment">// Yes, you can override pagination count PER MODEL (default 15)</span></span><br><span class="line"><span class="keyword">const</span> CREATED_AT = <span class="string">'created_at'</span>;</span><br><span class="line"><span class="keyword">const</span> UPDATED_AT = <span class="string">'updated_at'</span>; <span class="comment">// Yes, even those names can be overridden</span></span><br><span class="line"><span class="keyword">public</span> $timestamps = <span class="keyword">false</span>; <span class="comment">// or even not used at all</span></span><br></pre></td></tr></table></figure>
+
+<p>更多请查看默认 <a href="https://github.com/laravel/framework/blob/5.6/src/Illuminate/Database/Eloquent/Model.php" target="_blank" rel="noopener">abstract Model class</a> 的代码，并查看所有使用的特征。</p>
+<h3 id="6-find"><a href="#6-find" class="headerlink" title="6. find()"></a>6. find()</h3><p>大家都知道 <strong>find()</strong> 方法可以这样用：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$user = User::find(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<p>其实 <strong>find()</strong> 还可以传递一个数组作为参数：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$users = User::find([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]);</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-whereX"><a href="#7-whereX" class="headerlink" title="7. whereX"></a>7. whereX</h3><p>有一种优雅的方式可以解决这个问题：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$users = User::where(<span class="string">'approved'</span>, <span class="number">1</span>)-&gt;get();</span><br></pre></td></tr></table></figure>
+
+<p>等价于：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$users = User::whereApproved(<span class="number">1</span>)-&gt;get();</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-Order-by-relationship"><a href="#8-Order-by-relationship" class="headerlink" title="8. Order by relationship"></a>8. Order by relationship</h3><p>一个更复杂的“技巧”。如果您有论坛主题但想通过最新帖子订购，该怎么办？顶部有最新更新主题的论坛中非常常见的要求，对吧？</p>
+<p>首先，描述关于该主题的最新帖子的单独关系：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">latestPost</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;hasOne(\App\Post::class)-&gt;latest();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后，在我们的控制器中，我们可以这样做：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$users = Topic::with(<span class="string">'latestPost'</span>)-&gt;get()-&gt;sortByDesc(<span class="string">'latestPost.created_at'</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="9-Eloquent-when-–-no-more-if-else’s"><a href="#9-Eloquent-when-–-no-more-if-else’s" class="headerlink" title="9. Eloquent::when() – no more if-else’s"></a>9. Eloquent::when() – no more if-else’s</h3><p>我们中的许多人用 “ if-else ” 编写条件查询，如下所示：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (request(<span class="string">'filter_by'</span>) == <span class="string">'likes'</span>) &#123;</span><br><span class="line">    $query-&gt;where(<span class="string">'likes'</span>, <span class="string">'&gt;'</span>, request(<span class="string">'likes_amount'</span>, <span class="number">0</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (request(<span class="string">'filter_by'</span>) == <span class="string">'date'</span>) &#123;</span><br><span class="line">    $query-&gt;orderBy(<span class="string">'created_at'</span>, request(<span class="string">'ordering_rule'</span>, <span class="string">'desc'</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但有更好的方法 - 使用 when（）：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$query = Author::query();</span><br><span class="line"></span><br><span class="line">$query-&gt;when(request(<span class="string">'filter_by'</span>) == <span class="string">'likes'</span>, <span class="function"><span class="keyword">function</span> <span class="params">($q)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> $q-&gt;where(<span class="string">'likes'</span>, <span class="string">'&gt;'</span>, request(<span class="string">'likes_amount'</span>, <span class="number">0</span>));</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$query-&gt;when(request(<span class="string">'filter_by'</span>) == <span class="string">'date'</span>, <span class="function"><span class="keyword">function</span> <span class="params">($q)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> $q-&gt;orderBy(<span class="string">'created_at'</span>, request(<span class="string">'ordering_rule'</span>, <span class="string">'desc'</span>));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>它可能不会感觉更短或更优雅，但最强大的是传递参数：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$query = User::query();</span><br><span class="line"></span><br><span class="line">$query-&gt;when(request(<span class="string">'role'</span>, <span class="keyword">false</span>), <span class="function"><span class="keyword">function</span> <span class="params">($q)</span> <span class="title">use</span> <span class="params">($role)</span> </span>&#123; </span><br><span class="line">    <span class="keyword">return</span> $q-&gt;where(<span class="string">'role_id'</span>, $role);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$authors = $query-&gt;get();</span><br></pre></td></tr></table></figure>
+
+<h3 id="10-BelongsTo-Default-Models"><a href="#10-BelongsTo-Default-Models" class="headerlink" title="10. BelongsTo Default Models"></a>10. BelongsTo Default Models</h3><p>假设你有Post属于Author，然后是Blade代码：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">&#123;&#123; $post-&gt;author-&gt;name &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是如果作者被删除，或者由于某种原因没有设置呢？您将收到错误，例如“property of non-object”。<br>当然，您可以像这样阻止它：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">&#123;&#123; $post-&gt;author-&gt;name ?? <span class="string">''</span> &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但你可以在Eloquent关系层面上做到这一点：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">author</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;belongsTo(<span class="string">'App\Author'</span>)-&gt;withDefault();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在此示例中，如果没有作者附加到帖子，则 author（）关系将返回空的 App \ Author 模型。<br>此外，我们可以将默认属性值分配给该默认模型。</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">author</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;belongsTo(<span class="string">'App\Author'</span>)-&gt;withDefault([</span><br><span class="line">            <span class="string">'name'</span> =&gt; <span class="string">'Guest Author'</span></span><br><span class="line">    ]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="11-赋值函数排序"><a href="#11-赋值函数排序" class="headerlink" title="11. 赋值函数排序"></a>11. 赋值函数排序</h3><p>假设有这么一段代码：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getFullNameAttribute</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;attributes[<span class="string">'first_name'</span>].<span class="string">' '</span>.<span class="keyword">$this</span>-&gt;attributes[<span class="string">'last_name'</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果你想按照 full_name 进行排序，下面这句代码将不起作用:</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$clients = Client::orderBy(<span class="string">'full_name'</span>)-&gt;get();   <span class="comment">// doesn't work</span></span><br></pre></td></tr></table></figure>
+
+<p>解决办法很简单，我们只需要在获取集合之后利用 sortBy 对集合进行排序即可：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$clients = Client::get()-&gt;sortBy(<span class="string">'full_name'</span>);   <span class="comment">// works</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="12-全局范围内默认排序"><a href="#12-全局范围内默认排序" class="headerlink" title="12. 全局范围内默认排序"></a>12. 全局范围内默认排序</h3><p>如果你希望所有用户总是按照 name 字段排序，你可以在全局范围内做一个声明，让我们回到上面已经提到的boot（）方法。</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">boot</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">parent</span>::boot();</span><br><span class="line">    <span class="comment">// order by name ASC</span></span><br><span class="line">    <span class="keyword">static</span>::addGlobalScope(<span class="string">'order'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(Builder $builder)</span> </span>&#123;</span><br><span class="line">        $builder-&gt;orderBy(<span class="string">'name'</span>, <span class="string">'asc);</span></span><br><span class="line"><span class="string">    &#125;);</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="13-原始查询方法"><a href="#13-原始查询方法" class="headerlink" title="13. 原始查询方法"></a>13. 原始查询方法</h3><p>有时候我们需要在Eloquent查询语句中添加原始查询</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">// whereRaw</span></span><br><span class="line">$orders = DB::table(<span class="string">'orders'</span>)</span><br><span class="line">        -&gt;whereRaw(<span class="string">'price &gt; IF(state = "TX", ?, 100)'</span>, [<span class="number">200</span>])</span><br><span class="line">        -&gt;get();</span><br><span class="line"><span class="comment">// havingRaw</span></span><br><span class="line">Product::groupBy(<span class="string">'category_id'</span>)-&gt;havingRaw(<span class="string">'COUNT(*) &gt; 1'</span>)-&gt;get();</span><br><span class="line"><span class="comment">// orderByRaw</span></span><br><span class="line">User::where(<span class="string">'created_at'</span>, <span class="string">'&gt;'</span>, <span class="string">'2018-11-11'</span>)</span><br><span class="line">    -&gt;orderByRaw(<span class="string">'(updated_at - created_at) desc'</span>)</span><br><span class="line">    -&gt;get();</span><br></pre></td></tr></table></figure>
+
+<h3 id="14-Replicate-制作一行的副本"><a href="#14-Replicate-制作一行的副本" class="headerlink" title="14. Replicate: 制作一行的副本"></a>14. Replicate: 制作一行的副本</h3><p>制作数据库条目副本的最佳方法:</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$task = Task::find(<span class="number">1</span>);</span><br><span class="line">$newTask = $task-&gt;replicate();</span><br><span class="line">$newTask-&gt;save();</span><br></pre></td></tr></table></figure>
+
+<h3 id="15-chunk-方法批量处理大数据量"><a href="#15-chunk-方法批量处理大数据量" class="headerlink" title="15. chunk() 方法批量处理大数据量"></a>15. chunk() 方法批量处理大数据量</h3><p>不完全与Eloquent相关，它更多关于Collection，但仍然很强大 - 处理更大的数据集，你可以将它们分成几块。<br>一般情况下数据量不太大的情况下会像下面这样遍历</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$users = User::all();</span><br><span class="line"><span class="keyword">foreach</span>($users <span class="keyword">as</span> $user) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>数据太大就能显示 chunk() 的神威了</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">User::chunk(<span class="number">100</span>, <span class="function"><span class="keyword">function</span> <span class="params">($users)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">foreach</span>($users <span class="keyword">as</span> $user) &#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="16-命令行创建模型的同时，创建迁移文件和控制器"><a href="#16-命令行创建模型的同时，创建迁移文件和控制器" class="headerlink" title="16. 命令行创建模型的同时，创建迁移文件和控制器"></a>16. 命令行创建模型的同时，创建迁移文件和控制器</h3><p>laravel创建模型的命令大家都很熟悉：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">php artisan make:model Company</span><br></pre></td></tr></table></figure>
+
+<p>不过你应该了解另外几个很常用的参数：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">php artisan make:model Company -m</span><br><span class="line">php artisan make:model Company -mc</span><br><span class="line">php artisan make:model Company -mcr</span><br><span class="line">php artisan make:model Company -mcrf</span><br></pre></td></tr></table></figure>
+
+<p>-m 表示创建模型对应的迁移文件<br>-c 表示创建模型对应的控制器<br>-r 表示创建的控制器属于资源控制器<br>-f 表示创建模型对应的工厂文件</p>
+<p>实际上上述几个情况，也可以通过 -a 来实现</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">php artisan make:model Company -a</span><br></pre></td></tr></table></figure>
+
+<h3 id="17-保存数据的同时-覆盖-updated-at-的默认更新时间"><a href="#17-保存数据的同时-覆盖-updated-at-的默认更新时间" class="headerlink" title="17. 保存数据的同时 覆盖 updated_at 的默认更新时间"></a>17. 保存数据的同时 覆盖 updated_at 的默认更新时间</h3><p>其实 -&gt;save() 方法是可以接受额外参数的，因此，我们可以告诉它“忽略”updated_at默认功能以填充当前时间戳。</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$product = Product::find(<span class="number">1</span>);</span><br><span class="line">$product-&gt;updated_at = <span class="string">'2018-11-11 11:11:11'</span>;</span><br><span class="line">$product-&gt;save([<span class="string">'timestamps'</span> =&gt; <span class="keyword">false</span>]);</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，我们用我们预先定义的版本覆盖默认的updated_at。</p>
+<h3 id="18-update-方法的执行结果"><a href="#18-update-方法的执行结果" class="headerlink" title="18. update() 方法的执行结果"></a>18. update() 方法的执行结果</h3><p>你有没有想过这段代码究竟返回了什么？</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$result = $product-&gt;whereNull(<span class="string">'category_id'</span>)-&gt;update([<span class="string">'category_id'</span> =&gt; <span class="number">1</span>]);</span><br></pre></td></tr></table></figure>
+
+<p>更新是在数据库中执行的，但$ result会包含什么？<br>答案是受影响的行。因此，如果您需要检查受影响的行数，则无需再调用任何其他内容 - update（）方法将为您返回此数字。</p>
+<h3 id="19-将and-或者-or转换为Eloquent查询"><a href="#19-将and-或者-or转换为Eloquent查询" class="headerlink" title="19. 将and 或者 or转换为Eloquent查询"></a>19. 将and 或者 or转换为Eloquent查询</h3><p>在你的查询中肯定会遇到 and 或者 or 的情况，就像这样：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">... where (gender = <span class="string">'Male'</span> <span class="keyword">and</span> age &gt; <span class="number">18</span>) <span class="keyword">or</span> (gender = <span class="string">'Female'</span> <span class="keyword">and</span> age &gt;= <span class="number">65</span>)</span><br></pre></td></tr></table></figure>
+
+<p>那么怎么转换成Eloquent查询呢？先来看一个错误的例子：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$q-&gt;where(<span class="string">'gender'</span>, <span class="string">'Male'</span>);</span><br><span class="line">$q-&gt;where(<span class="string">'age'</span>, <span class="string">'&gt;'</span>, <span class="number">18</span>);</span><br><span class="line">$q-&gt;orWhere(<span class="string">'gender'</span>, <span class="string">'Female'</span>);</span><br><span class="line">$q-&gt;where(<span class="string">'age'</span>, <span class="string">'&gt;='</span>, <span class="number">65</span>);</span><br></pre></td></tr></table></figure>
+
+<p>正确的方法有点复杂，使用闭包函数作为子查询：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$q-&gt;where(<span class="function"><span class="keyword">function</span> <span class="params">($query)</span> </span>&#123;</span><br><span class="line">    $query-&gt;where(<span class="string">'gender'</span>, <span class="string">'Male'</span>)-&gt;where(<span class="string">'age'</span>, <span class="string">'&gt;'</span>, <span class="number">18</span>);</span><br><span class="line">&#125;)-&gt;orWhere(<span class="function"><span class="keyword">function</span> <span class="params">($query)</span> </span>&#123;</span><br><span class="line">    $query-&gt;where(<span class="string">'gender'</span>, <span class="string">'Female'</span>)-&gt;orWhere(<span class="string">'age'</span>, <span class="string">'&gt;='</span>, <span class="number">65</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="20-orWhere-有多个参数的情况"><a href="#20-orWhere-有多个参数的情况" class="headerlink" title="20. orWhere() 有多个参数的情况"></a>20. orWhere() 有多个参数的情况</h3><p>通常情况下遇到这种查询：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$q-&gt;where(<span class="string">'a'</span>, <span class="number">1</span>);</span><br><span class="line">$q-&gt;orWhere(<span class="string">'b'</span>, <span class="number">2</span>);</span><br><span class="line">$q-&gt;orWhere(<span class="string">'c'</span>, <span class="number">65</span>);</span><br></pre></td></tr></table></figure>
+
+<p>这种情况下可以传递一个数组作为 orWhere() 的参数：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$q-&gt;where(<span class="string">'a'</span>, <span class="number">1</span>);</span><br><span class="line">$q-&gt;orWhere([<span class="string">'b'</span> =&gt; <span class="number">2</span>, <span class="string">'c'</span> =&gt; <span class="number">65</span>]);</span><br></pre></td></tr></table></figure>
+
+<p>原文：<a href="https://laravel-news.com/eloquent-tips-tricks" target="_blank" rel="noopener">https://laravel-news.com/eloquent-tips-tricks</a></p>
+]]></content>
+      <tags>
+        <tag>Laravel</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Laravel-ORM关联查询</title>
+    <url>/2020/07/12/Laravel-ORM%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2/</url>
+    <content><![CDATA[<h1 id="Laravel-ORM关联查询"><a href="#Laravel-ORM关联查询" class="headerlink" title="Laravel-ORM关联查询"></a>Laravel-ORM关联查询</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>对象关系映射（<code>ORM</code>）使数据库的工作变得非常简单。 在以面向对象的方式定义数据库关系时，可以轻松查询相关的模型数据，开发人员可能不会注意底层数据库调用。</p>
+<p>下面将通过一些例子，进一步帮助您了解如何优化查询。</p>
+<p>假设您从数据库收到了100个对象，并且每个记录都有1个关联模型（即belongsTo）。 默认使用ORM将产生101个查询; 如下所示：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//获取已发布的100条文章</span></span><br><span class="line">$posts = Post::limit(<span class="number">100</span>)-&gt;get(); <span class="comment">//一次查询</span></span><br><span class="line"></span><br><span class="line">$authors = array_map(<span class="function"><span class="keyword">function</span><span class="params">($post)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 对作者模型生成查询</span></span><br><span class="line">    <span class="keyword">return</span> $post-&gt;author-&gt;name;</span><br><span class="line">&#125;, $posts);</span><br></pre></td></tr></table></figure>
+
+<p>我们在查询时没有告诉<code>Post</code>模型，我们还需要所有的作者，所以每次从单个<code>Post</code>模型实例获取作者的名字时，都会发生单独的查询。</p>
+<blockquote>
+<p>array_maps时发生100次查询，加上先前一次查询，累计产生101次查询。</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="预加载"><a href="#预加载" class="headerlink" title="预加载"></a>预加载</h2><p>接下来，如果我们打算使用关联的模型数据，我们可以使用预加载将该<code>101</code>个查询总数减少到<code>2</code>个查询。 只需要告诉模型你需要什么来加载。如下：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//获取已发布的100条文章  - 并预加载文章对应作者</span></span><br><span class="line">$posts = Post::with(<span class="string">'author'</span>)-&gt;limit(<span class="number">100</span>)-&gt;get();<span class="comment">//2次查询</span></span><br><span class="line"></span><br><span class="line">$authors = array_map(<span class="function"><span class="keyword">function</span><span class="params">($post)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 对作者模型生成查询</span></span><br><span class="line">    <span class="keyword">return</span> $post-&gt;author-&gt;name;<span class="comment">//这里讲不在产生查询</span></span><br><span class="line">&#125;, $posts);</span><br></pre></td></tr></table></figure>
+
+<p>如果你开启了<code>sql</code>日志，你将看到上述预加载将只会产生两条查询：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select * from &#96;posts&#96;</span><br><span class="line">select * from &#96;authors&#96; where &#96;authors&#96;.&#96;id&#96; in (?, ?, ?, ?, ?) [1,2,3,4,5]</span><br></pre></td></tr></table></figure>
+
+<p>如果您有多个关联模型，则可以使用数组加载它们：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$posts = App\Post::with([<span class="string">'author'</span>, <span class="string">'comments'</span>])-&gt;get();</span><br></pre></td></tr></table></figure>
+
+<p>接下来我们重新定义如下关系</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">Post -&gt; belongsTo -&gt; Author <span class="comment">//每个文章只属于一个用户</span></span><br><span class="line">Author -&gt; hasMany -&gt; Post   <span class="comment">//每个用户拥有多个文章</span></span><br><span class="line">Author -&gt; hasOne -&gt; Profile <span class="comment">//每个用户只有一个简介</span></span><br></pre></td></tr></table></figure>
+
+<p>考虑下述情况：获取已发布文章所属作者的个人简介。</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//获取所有文章 - 并预加载文章对应作者</span></span><br><span class="line">$posts = App\Post::with(<span class="string">'author'</span>)-&gt;get();<span class="comment">//两次查询</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//根据每个 `作者` 获取其简介</span></span><br><span class="line">$posts-&gt;map(<span class="function"><span class="keyword">function</span> <span class="params">($post)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//虽然我们直接通过$author = $post-&gt;author不会产生查询，</span></span><br><span class="line">    <span class="comment">//但当调用$author-&gt;profile时，每次都会产生一个新查询</span></span><br><span class="line">    <span class="keyword">return</span> $post-&gt;author-&gt;profile;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>假设上述<code>App\Post::with(&#39;author&#39;)-&gt;get()</code>有100条记录，将会产生多少条查询呢？</p>
+</blockquote>
+<p>通过优化预加载，我们可以避免嵌套关系中的额外查询。</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">//获取所有文章 - 并预加载文章对应作者及每个作者对应de profile</span></span><br><span class="line">$posts = App\Post::with(<span class="string">'author.profile'</span>)-&gt;get();<span class="comment">//三次查询</span></span><br><span class="line"></span><br><span class="line">$posts-&gt;map(<span class="function"><span class="keyword">function</span> <span class="params">($post)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//不在产生新查询</span></span><br><span class="line">    <span class="keyword">return</span> $post-&gt;author-&gt;profile;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>你可以打开你的<code>sql</code>日志看到对应的三条查询。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select * from &#96;posts&#96;  </span><br><span class="line">select * from &#96;authors&#96; where &#96;authors&#96;.&#96;id&#96; in (?, ?, ?, ?, ?) [.....] </span><br><span class="line">select * from &#96;profiles&#96; where &#96;profiles&#96;.&#96;author_id&#96; in (?, ?, ?, ?, ?) [.....]</span><br></pre></td></tr></table></figure>
+
+<h2 id="懒加载"><a href="#懒加载" class="headerlink" title="懒加载"></a>懒加载</h2><p>有时候您可能只需要根据条件收集相关联的模型。 在这种情况下，您可以懒惰地调用相关数据的其他查询：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">$posts = App\Post::all();<span class="comment">//一次查询</span></span><br><span class="line"></span><br><span class="line">$posts-&gt;load(<span class="string">'author.profile'</span>);<span class="comment">//两次查询</span></span><br><span class="line">$posts-&gt;map(<span class="function"><span class="keyword">function</span> <span class="params">($post)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//不在产生新查询</span></span><br><span class="line">    <span class="keyword">return</span> $post-&gt;author-&gt;profile;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>查看您的sql日志，总共看到三个查询，但只有调用<code>$posts-&gt;load()</code>时才会显示。</p>
+]]></content>
+      <tags>
+        <tag>Laravel</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux 基础</title>
+    <url>/2020/07/12/Linux-%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<h1 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h1><h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">/						#根目录  【重要】</span><br><span class="line">├── bin					#可执行程序目录，系统默认的命令可执行程序目录【重要】</span><br><span class="line">├── boot				#启动目录，系统启动分区 </span><br><span class="line">├── dev					#设备目录，光盘硬盘、鼠标、键盘，等等</span><br><span class="line">├── etc					#配置文件目录【重要】</span><br><span class="line">├── home				#root之外，普通用户家目录【重要】</span><br><span class="line">├── lib					#32位库目录</span><br><span class="line">├── lib64				#64位库目录</span><br><span class="line">├── lost+found			#系统异常，保存临时文件的目录</span><br><span class="line">├── media				#媒介目录，挂载光盘目录</span><br><span class="line">├── misc				#没卵用</span><br><span class="line">├── mnt					#挂载共享文件夹 </span><br><span class="line">├── net					#没卵用</span><br><span class="line">├── opt					#应用软件安装的目录</span><br><span class="line">├── proc				#设备信息目录</span><br><span class="line">├── root				#root用户的家目录 【重要】</span><br><span class="line">├── sbin				#超级用户可执行的一些命令存放目录</span><br><span class="line">├── selinux				#一个redhat系统默认的安全组件目录，没什么卵用</span><br><span class="line">├── srv</span><br><span class="line">├── sys</span><br><span class="line">├── tmp					#临时文件存放目录，一定时间会丢失。</span><br><span class="line">├── usr					#用户存放软件或者配置的目录 【重要】</span><br><span class="line">└── var					#存放数据的目录，数据库、web代码</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h2 id="常见的快捷键或者认识"><a href="#常见的快捷键或者认识" class="headerlink" title="常见的快捷键或者认识"></a>常见的快捷键或者认识</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# </span><br><span class="line">用户在哪个主机上面 当前所在的目录  </span><br><span class="line"></span><br><span class="line">~ 代表用户的家目录</span><br><span class="line"><span class="meta">#</span><span class="bash"> 代表超级用户输入命令</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> 普通用户输入命令</span></span><br><span class="line"></span><br><span class="line">Ctrl + L   #清屏</span><br><span class="line">Ctrl + A	#回到命令行首</span><br><span class="line">Ctrl + E    #回到命令行尾</span><br><span class="line">Ctrl + C    #结束当前程序运行</span><br><span class="line">Ctrl + U    #删除当前命令</span><br><span class="line">which  #查看命令所在的文件夹，一定要记住。</span><br></pre></td></tr></table></figure>
+
+<p><strong>命令执行不成功的一些可能性</strong></p>
+<ol>
+<li>命令输入错误</li>
+<li>命令加了不该加的空格 ，少了本该有的空格</li>
+<li>大小写敏感</li>
+<li>真的不存在</li>
+<li>命令没有安装</li>
+</ol>
+<h2 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ls  #列出目录</span><br><span class="line">ls -la  #列出详情  l代表详情，a隐藏文件 .代表隐藏文件或者文件夹</span><br><span class="line"></span><br><span class="line">drwxr-xr-x.  2 root root  4096 4月  18 19:49 公共的</span><br><span class="line"></span><br><span class="line">d  代表目录</span><br><span class="line">-  代表文件</span><br><span class="line">l  代表链接</span><br><span class="line"></span><br><span class="line">rwxr-xr-x 代表权限</span><br><span class="line"></span><br><span class="line">2  代表节点</span><br><span class="line"></span><br><span class="line">root   #所属用户</span><br><span class="line">root    #所属组</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">4096 代表文件大小</span><br><span class="line"></span><br><span class="line">最近的修改时间  mtime</span><br><span class="line"></span><br><span class="line">文件名</span><br><span class="line"></span><br><span class="line">cd [路径]  进入目录</span><br><span class="line">/sss/ssss  代表绝对路径</span><br><span class="line">./sss  当前目录</span><br><span class="line">../  代表上一级目录</span><br><span class="line">~  进入当前的家目录</span><br><span class="line"></span><br><span class="line">pwd ＃列出当前所在的路径</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mkdir  [路径]  创建文件夹   -p 递归创建文件夹，空格连起来创建多个</span><br><span class="line"></span><br><span class="line">cp  [源路径]  【目标路径】   复制，目录加-r</span><br><span class="line"></span><br><span class="line">mv  【原路径】 【目标路径】  #移动，同时兼职改名</span><br><span class="line"></span><br><span class="line">touch  #创建文件</span><br><span class="line"></span><br><span class="line">rm -rf  #不确认删一切。</span><br><span class="line"></span><br><span class="line">ln -s  [源地址] 【快捷方式】  #创建软连接</span><br></pre></td></tr></table></figure>
+
+<h2 id="vi-vim编辑器"><a href="#vi-vim编辑器" class="headerlink" title="vi/vim编辑器"></a>vi/vim编辑器</h2><p>vi是linu系统默认的编辑器</p>
+<p>vim 是升级版。支持更多属性</p>
+<p>命令：vi [文件名]</p>
+<p>vi 有三种模式</p>
+<ol>
+<li>快捷键模式</li>
+<li>编辑模式</li>
+<li>命令模式</li>
+</ol>
+<p>vi刚进来之后进入快捷键模式。</p>
+<table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">a</td>
+<td align="left">下一个字符进入编辑模式</td>
+</tr>
+<tr>
+<td align="left">i</td>
+<td align="left">当前字符进入编辑模式</td>
+</tr>
+<tr>
+<td align="left">dd</td>
+<td align="left">删除一行</td>
+</tr>
+<tr>
+<td align="left">ndd</td>
+<td align="left">删除n行</td>
+</tr>
+<tr>
+<td align="left">yy</td>
+<td align="left">复制当前行</td>
+</tr>
+<tr>
+<td align="left">nyy</td>
+<td align="left">复制n行</td>
+</tr>
+<tr>
+<td align="left">p</td>
+<td align="left">粘贴</td>
+</tr>
+<tr>
+<td align="left">np</td>
+<td align="left">粘贴多少次</td>
+</tr>
+<tr>
+<td align="left">esc</td>
+<td align="left">回到快捷键模式</td>
+</tr>
+</tbody></table>
+<p>编辑模式</p>
+<p>正常的输入模式</p>
+<p>命令模式</p>
+<p>进入命令模式一定要先回到快捷键模式</p>
+<table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">:wq!</td>
+<td align="left">保存并强制退出，w写入q退出</td>
+</tr>
+<tr>
+<td align="left">:set nu</td>
+<td align="left">加行号</td>
+</tr>
+<tr>
+<td align="left">:?查找</td>
+<td align="left">快捷键n查找下一个 shift + n查找上一个</td>
+</tr>
+<tr>
+<td align="left">: s /[查找]/[替换]</td>
+<td align="left">替换当前行</td>
+</tr>
+<tr>
+<td align="left">:%/[查找]/[替换]/g</td>
+<td align="left">全局替换</td>
+</tr>
+</tbody></table>
+<h2 id="命令行帮助工具"><a href="#命令行帮助工具" class="headerlink" title="命令行帮助工具"></a>命令行帮助工具</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ls  --help  #帮助命令，查看可选参数</span><br><span class="line">find / -name index.php  #查找文件</span><br><span class="line">man 命令    #manual的意思，q退出。</span><br></pre></td></tr></table></figure>
+
+<h2 id="解压缩"><a href="#解压缩" class="headerlink" title="解压缩"></a>解压缩</h2><p>.gz</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gzip   文件名       #压缩,不支持压缩目录</span><br><span class="line">gzip -d 压缩包名    #解压缩</span><br></pre></td></tr></table></figure>
+
+<p>.bz2</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">bzip2   文件名  #压缩，不支持目录。</span><br><span class="line"></span><br><span class="line">bzip2  -d   压缩包名  #解压缩</span><br></pre></td></tr></table></figure>
+
+<p>.zip</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yum install -y zip  unzip  #安装</span><br><span class="line">zip index.php.zip  index.php  #压缩，支持目录，源文件存在不会删除</span><br><span class="line">unzip  index.php.zip  #解压缩，源文件存在不会删除</span><br></pre></td></tr></table></figure>
+
+<p>tar 不是一个压缩工具，是叫做打包工具</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -cf php.tar php  #打包</span><br><span class="line">tar -xf php.tar   #解包</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">非常广泛。</span></span><br><span class="line">tar -zcvf  xxx.tar.gz  index.php 2.php  #压缩包，打包的同时并压缩</span><br><span class="line">tar -zxvf  xxx.tar.gz	#解压缩包</span><br><span class="line"></span><br><span class="line">tar -jcvf xxx.tar.bzip2	index.php  1.php #用bz2进行压缩并打包</span><br><span class="line">tar -jxvf xxx.tar.bzip2	#解压</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux 用户和权限</title>
+    <url>/2020/07/12/Linux-%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90/</url>
+    <content><![CDATA[<h1 id="linux-用户管理及权限"><a href="#linux-用户管理及权限" class="headerlink" title="linux 用户管理及权限"></a>linux 用户管理及权限</h1><h2 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">useradd username #添加用户</span><br><span class="line">su username #切换用户</span><br><span class="line">passwd username #修改用户密码，默认只能root用户修改</span><br><span class="line"></span><br><span class="line">username:x:502:502::/home/kun:/bin/bash</span><br><span class="line">1. 用户名</span><br><span class="line">2. 密码，不可见</span><br><span class="line">3.uid</span><br><span class="line">4.gid</span><br><span class="line">5.注释</span><br><span class="line">6.家目录</span><br><span class="line">7.环境变量</span><br><span class="line"></span><br><span class="line">userdel kun  #删除用户，会留下用户文件夹，相关文件少一行。</span><br><span class="line"></span><br><span class="line">groupadd  gname #创建组。</span><br><span class="line">groupdel  gname  #删除组。</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<p>创建用户的时候发生了想那些事情。</p>
+<ol>
+<li>home文件夹下面多了一个用户名命名的文件夹。</li>
+<li>/etc/passwd文件是记录用户的文件，新增之后就会多一行</li>
+<li>/etc/shadow文件是记录的不可描述的密码，无卵用</li>
+<li>/etc/group用户组文件，如果你创建用户的时候，没有制定用户组，会自动创建袼跟用户名一直的用户组</li>
+<li>uid和gid都是从500开始</li>
+</ol>
+<h2 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rwx r-x r-x</span><br><span class="line">所属用户的权限</span><br><span class="line">所属用户组的权限</span><br><span class="line">其他人的权限</span><br><span class="line"></span><br><span class="line">一个文件它可以属于某一个用户。</span><br><span class="line">同时还可以属于一个用户组。</span><br><span class="line"></span><br><span class="line">用户组包含一堆用户。</span><br><span class="line"></span><br><span class="line">4 r：可读</span><br><span class="line">2 w：可写，删除、修改、新增</span><br><span class="line">1 x：可执行</span><br><span class="line"></span><br><span class="line">数字权限代表法</span><br><span class="line"></span><br><span class="line">rwx rwx rwx</span><br><span class="line">7   7   7</span><br><span class="line"></span><br><span class="line">rwx r-x r-x</span><br><span class="line">7   5   5   </span><br><span class="line"></span><br><span class="line">rwx r-x ---</span><br><span class="line">7   5    0</span><br><span class="line"></span><br><span class="line">umask  0022</span><br><span class="line"></span><br><span class="line">chmod 777 index.php   #修改文件权限</span><br><span class="line">chmod -R 777 /var    #修改文件夹的权限。</span><br><span class="line"></span><br><span class="line">chgrp bo index.php	#修改所属组。</span><br><span class="line">chown bo:bo  index.php   #修改所属用户以及用户组。</span><br><span class="line">chown -R bo:bo index.php   #递归修改权限。</span><br><span class="line"></span><br><span class="line">stat   index.php     #查询文件的各种时间</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MySql 基础</title>
+    <url>/2020/07/12/MySql-%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<h1 id="Mysql"><a href="#Mysql" class="headerlink" title="Mysql"></a>Mysql</h1><h2 id="sql-分类"><a href="#sql-分类" class="headerlink" title="sql 分类"></a>sql 分类</h2><h3 id="1、DDL"><a href="#1、DDL" class="headerlink" title="1、DDL"></a>1、DDL</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CREATE &#x2F;&#x2F;创建</span><br><span class="line">DROP &#x2F;&#x2F;删除</span><br><span class="line">ALTER &#x2F;&#x2F;修改</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、DML"><a href="#2、DML" class="headerlink" title="2、DML"></a>2、DML</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">INSERT &#x2F;&#x2F;插入</span><br><span class="line">UPDATE &#x2F;&#x2F;修改</span><br><span class="line">DELETE &#x2F;&#x2F;删除</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、DQL"><a href="#3、DQL" class="headerlink" title="3、DQL"></a>3、DQL</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT &#x2F;&#x2F;查询</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h3 id="4、DCL"><a href="#4、DCL" class="headerlink" title="4、DCL"></a>4、DCL</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">GRANT &#x2F;&#x2F;赋权</span><br><span class="line">REMOTE &#x2F;&#x2F;减权</span><br></pre></td></tr></table></figure>
+
+<h3 id="5、DTL"><a href="#5、DTL" class="headerlink" title="5、DTL"></a>5、DTL</h3><p>mysql</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">BEGIN &#x2F;&#x2F;开始</span><br><span class="line">COMMIT &#x2F;&#x2F;提交</span><br><span class="line">ROLLBACK &#x2F;&#x2F;回滚</span><br></pre></td></tr></table></figure>
+
+<h2 id="命令行操作数据库"><a href="#命令行操作数据库" class="headerlink" title="命令行操作数据库"></a>命令行操作数据库</h2><h3 id="链接数据库"><a href="#链接数据库" class="headerlink" title="链接数据库"></a>链接数据库</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysql -uroot -p</span><br><span class="line">Enter password:******</span><br><span class="line"></span><br><span class="line">mysql -uroot -p******</span><br></pre></td></tr></table></figure>
+
+<h3 id="结束当前命令"><a href="#结束当前命令" class="headerlink" title="结束当前命令"></a>结束当前命令</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">\c</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看帮助命令"><a href="#查看帮助命令" class="headerlink" title="查看帮助命令"></a>查看帮助命令</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">\h</span><br></pre></td></tr></table></figure>
+
+<h3 id="相当于分号"><a href="#相当于分号" class="headerlink" title="相当于分号"></a>相当于分号</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">\g</span><br></pre></td></tr></table></figure>
+
+<h3 id="退出数据库"><a href="#退出数据库" class="headerlink" title="退出数据库"></a>退出数据库</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">exit;</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看数据库"><a href="#查看数据库" class="headerlink" title="查看数据库"></a>查看数据库</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">show databases;</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建库"><a href="#创建库" class="headerlink" title="创建库"></a>创建库</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">create database dbName;</span><br></pre></td></tr></table></figure>
+
+<p>注：建库必须设置字符集</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">default charset utf8 collate utf8_general_ci</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看建库语句"><a href="#查看建库语句" class="headerlink" title="查看建库语句"></a>查看建库语句</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">show create database dbName;</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除库"><a href="#删除库" class="headerlink" title="删除库"></a>删除库</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">drop database dbName;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用库"><a href="#使用库" class="headerlink" title="使用库"></a>使用库</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">use dbName;</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看当前库下有那些表"><a href="#查看当前库下有那些表" class="headerlink" title="查看当前库下有那些表"></a>查看当前库下有那些表</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">show tables;</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">create table tName (field1 type(length), field2 type(length), field3 type(length)...)  &#x2F;&#x2F;field 字段，type 类型，length 长度</span><br></pre></td></tr></table></figure>
+
+<p>注：建表必须指定引擎</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ENGINE&#x3D;InnoDB</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看建表语句"><a href="#查看建表语句" class="headerlink" title="查看建表语句"></a>查看建表语句</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">show create table tName;</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除表"><a href="#删除表" class="headerlink" title="删除表"></a>删除表</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">drop table tName;</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改表"><a href="#修改表" class="headerlink" title="修改表"></a>修改表</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">alter table tName rename newTName;</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看表结构"><a href="#查看表结构" class="headerlink" title="查看表结构"></a>查看表结构</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">desc tName;</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加表字段"><a href="#添加表字段" class="headerlink" title="添加表字段"></a>添加表字段</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">alter table tName add addField type after field; &#x2F;&#x2F;添加在field之后</span><br><span class="line"></span><br><span class="line">alter table tName add addField type first; &#x2F;&#x2F;添加在第一个</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除表字段"><a href="#删除表字段" class="headerlink" title="删除表字段"></a>删除表字段</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">alter table tName drop field;</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改表字段的数据类型"><a href="#修改表字段的数据类型" class="headerlink" title="修改表字段的数据类型"></a>修改表字段的数据类型</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">alter table tName modify field type;</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改表字段的名字和数据类型"><a href="#修改表字段的名字和数据类型" class="headerlink" title="修改表字段的名字和数据类型"></a>修改表字段的名字和数据类型</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">alter table tName change oldField newField newType;</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看引擎"><a href="#查看引擎" class="headerlink" title="查看引擎"></a>查看引擎</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">show engines;</span><br></pre></td></tr></table></figure>
+
+<h3 id="导出库"><a href="#导出库" class="headerlink" title="导出库"></a>导出库</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysqldump -uroot -p dbName &gt; path &#x2F;&#x2F;path 文件路径和文件名</span><br></pre></td></tr></table></figure>
+
+<p>注：该命令需要退出mysql</p>
+<h3 id="导出表"><a href="#导出表" class="headerlink" title="导出表"></a>导出表</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysqldump -uroot -p dbName tName &gt; path</span><br></pre></td></tr></table></figure>
+
+<h3 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysql -uroot -p newDbName &lt; path</span><br></pre></td></tr></table></figure>
+
+<p>sql脚本数据量较大时，导入时推荐使用：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">source path</span><br></pre></td></tr></table></figure>
+
+
+
+<p>source 命令需要进入数据库，选择表</p>
+<h2 id="MyISAM-和-InnoDB-的区别"><a href="#MyISAM-和-InnoDB-的区别" class="headerlink" title="MyISAM 和 InnoDB 的区别"></a>MyISAM 和 InnoDB 的区别</h2><h3 id="MyISAM"><a href="#MyISAM" class="headerlink" title="MyISAM"></a>MyISAM</h3><p>不支持事务</p>
+<p>不支持外键</p>
+<p>读取速度快</p>
+<p>增删改为表锁</p>
+<h3 id="InnoDB"><a href="#InnoDB" class="headerlink" title="InnoDB"></a>InnoDB</h3><p>支持事务</p>
+<p>支持外键</p>
+<p>写入速度快</p>
+<p>增删改为行锁</p>
+<h2 id="char-和-varchar-的区别"><a href="#char-和-varchar-的区别" class="headerlink" title="char 和 varchar 的区别"></a>char 和 varchar 的区别</h2><h3 id="char"><a href="#char" class="headerlink" title="char"></a>char</h3><p>固定长度</p>
+<p>最多存放255个字符</p>
+<p>速度快</p>
+<h3 id="varchar"><a href="#varchar" class="headerlink" title="varchar"></a>varchar</h3><p>可变长度</p>
+<p>最多存放65532个字符</p>
+<p>速度慢</p>
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><h3 id="普通索引"><a href="#普通索引" class="headerlink" title="普通索引"></a>普通索引</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">alter table tName add index(field);</span><br></pre></td></tr></table></figure>
+
+<h3 id="唯一索引"><a href="#唯一索引" class="headerlink" title="唯一索引"></a>唯一索引</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">alter table tName add unique(field);</span><br></pre></td></tr></table></figure>
+
+<h3 id="主键索引"><a href="#主键索引" class="headerlink" title="主键索引"></a>主键索引</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">alter table tName add primary key(field);</span><br></pre></td></tr></table></figure>
+
+<h3 id="全文索引"><a href="#全文索引" class="headerlink" title="全文索引"></a>全文索引</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">alter table tName add fulltext(field);</span><br></pre></td></tr></table></figure>
+
+<h2 id="增删改查"><a href="#增删改查" class="headerlink" title="增删改查"></a>增删改查</h2><h3 id="增加数据"><a href="#增加数据" class="headerlink" title="增加数据"></a>增加数据</h3><p>如下必须和字段一一对应，包括id</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">insert into tName values (value1, value2, value3...);</span><br></pre></td></tr></table></figure>
+
+<p>这种需要和前面的字段对应</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">insert into (field1, field2, field3...) values (value1, value2, value3...);</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">delete from tName where id&#x3D;1; &#x2F;&#x2F;单行删除</span><br><span class="line"></span><br><span class="line">delete from tName where id in (1, 2, 3...); &#x2F;&#x2F;批量删除</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">update tName set field1&#x3D;value1, field2&#x3D;value2... where id&#x3D;1;</span><br><span class="line"></span><br><span class="line">update tName set intField&#x3D;intField+10 where id&#x3D;1;</span><br><span class="line"></span><br><span class="line">update tName1 as t1, tName2 as t2 set t1.field1&#x3D;value1, t2.field2&#x3D;value2 where t1.id &#x3D; t2.uid and t1.id&#x3D;1;</span><br></pre></td></tr></table></figure>
+
+<h3 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h3><h4 id="1、查询所有"><a href="#1、查询所有" class="headerlink" title="1、查询所有"></a>1、查询所有</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select * from tName; &#x2F;&#x2F;一般不用，速度慢</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、按照指定字段查询"><a href="#2、按照指定字段查询" class="headerlink" title="2、按照指定字段查询"></a>2、按照指定字段查询</h4><p>查询field1, field2字段在tName表下所有的值</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select field1, field2... from tName;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、去除重复值-distinct"><a href="#3、去除重复值-distinct" class="headerlink" title="3、去除重复值 distinct"></a>3、去除重复值 distinct</h4><p>查询tName表下field1字段的值如果有重复值，只保留一个</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select distinct field1 from tName;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4、配合where查询"><a href="#4、配合where查询" class="headerlink" title="4、配合where查询"></a>4、配合where查询</h4><p>查询field1, field2字段在tName表下id为1的值</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select field1, field2... from tName where id&#x3D;1;</span><br></pre></td></tr></table></figure>
+
+<h4 id="5、between-and"><a href="#5、between-and" class="headerlink" title="5、between and"></a>5、between and</h4><p>查询field1, field2字段在tName表下money的值在100和500之间的值</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select field1, field2... from tName where money between 100 and 500;</span><br><span class="line"></span><br><span class="line">select field1, field2... from tName where money &gt;&#x3D; 100 and money&lt;&#x3D;500;</span><br></pre></td></tr></table></figure>
+
+<h4 id="6、-gt-lt-gt-lt-lt-gt"><a href="#6、-gt-lt-gt-lt-lt-gt" class="headerlink" title="6、&gt; &lt; &gt;= &lt;= != &lt;&gt;"></a>6、&gt; &lt; &gt;= &lt;= != &lt;&gt;</h4><p>!= 和 &lt;&gt; 相同</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select field1, field2... from tName where money &gt; 100;</span><br><span class="line"></span><br><span class="line">select field1, field2... from tName where money &lt; 100;</span><br><span class="line"></span><br><span class="line">select field1, field2... from tName where money &gt;&#x3D; 100;</span><br><span class="line"></span><br><span class="line">select field1, field2... from tName where money &lt;&#x3D; 100;</span><br><span class="line"></span><br><span class="line">select field1, field2... from tName where money !&#x3D; 100;</span><br><span class="line"></span><br><span class="line">select field1, field2... from tName where money &lt;&gt; 100;</span><br></pre></td></tr></table></figure>
+
+<h4 id="7、-in"><a href="#7、-in" class="headerlink" title="7、 in"></a>7、 in</h4><p>查询field1, field2字段在tName表下id等于1，2，3</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select field1, field2... from tName where id in (1, 2, 3...);</span><br></pre></td></tr></table></figure>
+
+<h4 id="8、模糊查询-like"><a href="#8、模糊查询-like" class="headerlink" title="8、模糊查询 like"></a>8、模糊查询 like</h4><p>查询field1, field2字段在tName表下province字段含有“安”字的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select field1, field2... from tName where province like &#39;%安%&#39;;</span><br></pre></td></tr></table></figure>
+
+<p>查询field1, field2字段在tName表下province字段“安”字开头的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select field1, field2... from tName where province like &#39;安%&#39;;</span><br></pre></td></tr></table></figure>
+
+<p>查询field1, field2字段在tName表下province字段“安”字结尾的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select field1, field2... from tName where province like &#39;%安&#39;;</span><br></pre></td></tr></table></figure>
+
+<p>查询field1, field2字段在tName表下province字段“安”字开头并且只有两个字的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select field1, field2... from tName where province like &#39;安_&#39;;</span><br></pre></td></tr></table></figure>
+
+<p>查询field1, field2字段在tName表下province字段“安”字结尾并且只有两个字的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select field1, field2... from tName where province like &#39;_安&#39;;</span><br></pre></td></tr></table></figure>
+
+<p>注：</p>
+<p>使用索引可能会导致模糊查询失败</p>
+<h4 id="9、排序-order-by"><a href="#9、排序-order-by" class="headerlink" title="9、排序 order by"></a>9、排序 order by</h4><p>查询field1, field2字段在tName表下按照id升序</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select field1, field2... from tName order by id</span><br></pre></td></tr></table></figure>
+
+<p>查询field1, field2字段在tName表下按照id降序</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select field1, field2... from tName order by id desc</span><br></pre></td></tr></table></figure>
+
+<h4 id="10、分页-limit"><a href="#10、分页-limit" class="headerlink" title="10、分页 limit"></a>10、分页 limit</h4><p>查询field1, field2字段在tName表下1-5条数据</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select field1, field2... from tName limit 0, 5  &#x2F;&#x2F;0，5 从第一行开始取，取5行数据</span><br></pre></td></tr></table></figure>
+
+<p>注：</p>
+<p>当前页为n，当前页显示5条数据，limit条件为 <code>limit (n-1) * 5 , 5</code></p>
+<h4 id="11、分组-group-by"><a href="#11、分组-group-by" class="headerlink" title="11、分组 group by"></a>11、分组 group by</h4><p>查询field1, field2字段在tName表下根据province分组</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select field1, field2... from tName group by province;</span><br></pre></td></tr></table></figure>
+
+<h4 id="12、求和-count"><a href="#12、求和-count" class="headerlink" title="12、求和 count"></a>12、求和 count</h4><p>查询tName表下的数据行数</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select count(*) from tName;</span><br></pre></td></tr></table></figure>
+
+<p>查询province的内容和province对应的行数</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select province, count(province) from tName group by province;</span><br></pre></td></tr></table></figure>
+
+<h4 id="13、别名-as"><a href="#13、别名-as" class="headerlink" title="13、别名 as"></a>13、别名 as</h4><p>这样查询后的结果集只有province，pCount两个字段</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select province, count(province) as pCount from tName group by province;</span><br></pre></td></tr></table></figure>
+
+<h4 id="14、求最大值-max"><a href="#14、求最大值-max" class="headerlink" title="14、求最大值 max"></a>14、求最大值 max</h4><p>求intField字段在tName表下的最大值</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT max(intField) FROM tName;</span><br></pre></td></tr></table></figure>
+
+<h4 id="15、求最小值-min"><a href="#15、求最小值-min" class="headerlink" title="15、求最小值 min"></a>15、求最小值 min</h4><p>求intField字段在tName表下的最小值</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT min(intField) FROM tName;</span><br></pre></td></tr></table></figure>
+
+<h4 id="16、求平均值-avg"><a href="#16、求平均值-avg" class="headerlink" title="16、求平均值 avg"></a>16、求平均值 avg</h4><p>求intField字段在tName表下的平均值</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT avg(intField) FROM tName;</span><br></pre></td></tr></table></figure>
+
+<h4 id="17、对结果集进行再次过滤-having"><a href="#17、对结果集进行再次过滤-having" class="headerlink" title="17、对结果集进行再次过滤 having"></a>17、对结果集进行再次过滤 having</h4><p>求province，pCount字段在tName表下并且pCount&gt;=2</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select province, count(province) as pCount from tName group by province having pCount&gt;&#x3D;2;</span><br></pre></td></tr></table></figure>
+
+<h3 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h3><h4 id="1、隐式内连接"><a href="#1、隐式内连接" class="headerlink" title="1、隐式内连接"></a>1、隐式内连接</h4><p>查询tName1表下的field2字段和tName2表下的field2字段，二者的关联条件为tName1.field1和tName2.field1相等,取出来的值必须在两个表里都能够对应，取交集</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select tName1.field2, tName2.field2 from tName1, tName2 where tName1.field1&#x3D;tName2.field1;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、显式内连接-inner-join-on"><a href="#2、显式内连接-inner-join-on" class="headerlink" title="2、显式内连接 inner join on"></a>2、显式内连接 inner join on</h4><p>效果和隐式内连接相同</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select tName1.field2, tName2.field2 from tName1 inner join tName2 on tName1.field1&#x3D;tName2.field1;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、左连接-left-join-on"><a href="#3、左连接-left-join-on" class="headerlink" title="3、左连接 left join on"></a>3、左连接 left join on</h4><p>查询tName1表下的field2字段和tName2表下的field2字段，二者的关联条件为tName1.field1和tName2.field1相等,取出来的值以tName1为主，tName2中如果没有值会为null</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select tName1.field2, tName2.field2 from tName1 left join tName2 on tName1.field1&#x3D;tName2.field1;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4、右连接-right-jion-on"><a href="#4、右连接-right-jion-on" class="headerlink" title="4、右连接 right jion on"></a>4、右连接 right jion on</h4><p>查询tName1表下的field2字段和tName2表下的field2字段，二者的关联条件为tName1.field1和tName2.field1相等,取出来的值以tName2为主，tName1中如果没有值会为null</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select tName1.field2, tName2.field2 from tName1 right join tName2 on tName1.field1&#x3D;tName2.field1;</span><br></pre></td></tr></table></figure>
+
+<h4 id="5、嵌套查询"><a href="#5、嵌套查询" class="headerlink" title="5、嵌套查询"></a>5、嵌套查询</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select field from tName1 where id in (select id from tName2);  &#x2F;&#x2F;一般不用，效率低</span><br></pre></td></tr></table></figure>
+
+<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><p>更新多个表，全部更新成功才是成功，只要有一个更新失败就是失败</p>
+<p>全部成功提交更新结果</p>
+<p>失败就回滚</p>
+<p>注：</p>
+<p>数据库引擎必须是InnoDB</p>
+<h3 id="1、把自动提交改成手动提交"><a href="#1、把自动提交改成手动提交" class="headerlink" title="1、把自动提交改成手动提交"></a>1、把自动提交改成手动提交</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">set autocommit &#x3D; 0;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、开启一个事务"><a href="#2、开启一个事务" class="headerlink" title="2、开启一个事务"></a>2、开启一个事务</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">begin</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、执行多个sql语句"><a href="#3、执行多个sql语句" class="headerlink" title="3、执行多个sql语句"></a>3、执行多个sql语句</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">insert into tName values (value1, value2, value3...);</span><br><span class="line">delete from tName where id&#x3D;1;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、提交或回滚"><a href="#4、提交或回滚" class="headerlink" title="4、提交或回滚"></a>4、提交或回滚</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">commit&#x2F;rollback</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>MySql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>php 错误处理</title>
+    <url>/2020/07/12/php-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/</url>
+    <content><![CDATA[<h1 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h1><h2 id="配置文件抑制错误"><a href="#配置文件抑制错误" class="headerlink" title="配置文件抑制错误"></a>配置文件抑制错误</h2><p>生产坏境需要抑制错误，测试环境需要放开错误</p>
+<p>php.ini</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">display_errors = On</span><br></pre></td></tr></table></figure>
+
+<p>改为</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">display_errors = Off</span><br></pre></td></tr></table></figure>
+
+<p>php代码修改php.ini</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">ini_set(<span class="string">'display_errors'</span>) = <span class="string">'Off'</span>;</span><br></pre></td></tr></table></figure>
+
+<p>获取php.ini</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">ini_get(<span class="string">'display_errors'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>另一种方式</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">error_reporting(<span class="number">0</span>); <span class="comment">//屏蔽错误</span></span><br><span class="line"></span><br><span class="line">error_reporting(E_ALL);  <span class="comment">//显示错误</span></span><br></pre></td></tr></table></figure>
+
+<p>错误日志路径</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">error_log = <span class="string">'wamp64/logs/php_error.log'</span>;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>PHP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>php 时间函数</title>
+    <url>/2020/07/12/php-%E6%97%B6%E9%97%B4%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<h2 id="时间函数"><a href="#时间函数" class="headerlink" title="时间函数"></a>时间函数</h2><p>返回时间戳</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">time();</span><br></pre></td></tr></table></figure>
+
+<p>格式化时间戳</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">date(<span class="string">'Y-m-d H:i:s'</span>, time());</span><br></pre></td></tr></table></figure>
+
+<p>根据日期返回时间戳</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">mktime(<span class="number">12</span>, <span class="number">59</span>, <span class="number">59</span>, <span class="number">12</span>, <span class="number">31</span>, <span class="number">1997</span>); <span class="comment">//H,i,s,m,d,Y</span></span><br></pre></td></tr></table></figure>
+
+<p>验证一个日期</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">checkdate(<span class="number">12</span>, <span class="number">31</span>, <span class="number">1997</span>); <span class="comment">//m,d,Y</span></span><br></pre></td></tr></table></figure>
+
+<p>返回日期，以数组形式</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">getdate(time());</span><br></pre></td></tr></table></figure>
+
+<p>根据格式化后的日期字符串返回时间戳</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">strtotime(<span class="string">'2018-4-9 9:20:50'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>根据格式化后的日期字符串返回时间数组</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">date_parse(<span class="string">"2006-12-12 10:00:00.5"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>返回当前时间戳和微秒数</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">microtime();</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>PHP</tag>
+      </tags>
+  </entry>
+</search>
