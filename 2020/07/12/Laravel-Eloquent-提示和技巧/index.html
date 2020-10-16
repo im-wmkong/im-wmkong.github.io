@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"wmkong.me","root":"/","scheme":"Pisces","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Laravel Eloquent 提示和技巧Eloquent ORM 看起来像一个简单的机制，但在幕后，有很多半隐藏的功能和不太知名的方法来实现更多。在本文中，我将向您展示一些技巧。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Laravel Eloquent 提示和技巧">
+<meta property="og:url" content="http://wmkong.me/2020/07/12/Laravel-Eloquent-%E6%8F%90%E7%A4%BA%E5%92%8C%E6%8A%80%E5%B7%A7/index.html">
+<meta property="og:site_name" content="WmKong Blog">
+<meta property="og:description" content="Laravel Eloquent 提示和技巧Eloquent ORM 看起来像一个简单的机制，但在幕后，有很多半隐藏的功能和不太知名的方法来实现更多。在本文中，我将向您展示一些技巧。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-12T14:21:49.000Z">
+<meta property="article:modified_time" content="2020-10-16T02:56:17.408Z">
+<meta property="article:author" content="孔维民">
+<meta property="article:tag" content="Laravel">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://wmkong.me/2020/07/12/Laravel-Eloquent-%E6%8F%90%E7%A4%BA%E5%92%8C%E6%8A%80%E5%B7%A7/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Laravel Eloquent 提示和技巧 | WmKong Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">WmKong Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">I'm WmKong</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Laravel-Eloquent-提示和技巧"><span class="nav-number">1.</span> <span class="nav-text">Laravel Eloquent 提示和技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Increments-and-Decrements"><span class="nav-number">1.0.1.</span> <span class="nav-text">1. Increments and Decrements</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-XorY-methods"><span class="nav-number">1.0.2.</span> <span class="nav-text">2. XorY methods</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-模型-boot-方法"><span class="nav-number">1.0.3.</span> <span class="nav-text">3. 模型 boot() 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Relationship-with-conditions-and-ordering"><span class="nav-number">1.0.4.</span> <span class="nav-text">4. Relationship with conditions and ordering</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-模型属性：timestamps-appends等。"><span class="nav-number">1.0.5.</span> <span class="nav-text">5. 模型属性：timestamps, appends等。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-find"><span class="nav-number">1.0.6.</span> <span class="nav-text">6. find()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-whereX"><span class="nav-number">1.0.7.</span> <span class="nav-text">7. whereX</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-Order-by-relationship"><span class="nav-number">1.0.8.</span> <span class="nav-text">8. Order by relationship</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-Eloquent-when-–-no-more-if-else’s"><span class="nav-number">1.0.9.</span> <span class="nav-text">9. Eloquent::when() – no more if-else’s</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-BelongsTo-Default-Models"><span class="nav-number">1.0.10.</span> <span class="nav-text">10. BelongsTo Default Models</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-赋值函数排序"><span class="nav-number">1.0.11.</span> <span class="nav-text">11. 赋值函数排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-全局范围内默认排序"><span class="nav-number">1.0.12.</span> <span class="nav-text">12. 全局范围内默认排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-原始查询方法"><span class="nav-number">1.0.13.</span> <span class="nav-text">13. 原始查询方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-Replicate-制作一行的副本"><span class="nav-number">1.0.14.</span> <span class="nav-text">14. Replicate: 制作一行的副本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-chunk-方法批量处理大数据量"><span class="nav-number">1.0.15.</span> <span class="nav-text">15. chunk() 方法批量处理大数据量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-命令行创建模型的同时，创建迁移文件和控制器"><span class="nav-number">1.0.16.</span> <span class="nav-text">16. 命令行创建模型的同时，创建迁移文件和控制器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#17-保存数据的同时-覆盖-updated-at-的默认更新时间"><span class="nav-number">1.0.17.</span> <span class="nav-text">17. 保存数据的同时 覆盖 updated_at 的默认更新时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#18-update-方法的执行结果"><span class="nav-number">1.0.18.</span> <span class="nav-text">18. update() 方法的执行结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#19-将and-或者-or转换为Eloquent查询"><span class="nav-number">1.0.19.</span> <span class="nav-text">19. 将and 或者 or转换为Eloquent查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#20-orWhere-有多个参数的情况"><span class="nav-number">1.0.20.</span> <span class="nav-text">20. orWhere() 有多个参数的情况</span></a></li></ol></li></ol></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="孔维民"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">孔维民</p>
+  <div class="site-description" itemprop="description">所有人的坚强，都是柔软生的茧。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/im-wmkong" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;im-wmkong" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:im.wmkong@gmail.com" title="E-Mail → mailto:im.wmkong@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+      <div class="main-inner">
+        
+
+        <div class="content post posts-expand">
+          
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://wmkong.me/2020/07/12/Laravel-Eloquent-%E6%8F%90%E7%A4%BA%E5%92%8C%E6%8A%80%E5%B7%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="孔维民">
+      <meta itemprop="description" content="所有人的坚强，都是柔软生的茧。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WmKong Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Laravel Eloquent 提示和技巧
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-12 22:21:49" itemprop="dateCreated datePublished" datetime="2020-07-12T22:21:49+08:00">2020-07-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-16 10:56:17" itemprop="dateModified" datetime="2020-10-16T10:56:17+08:00">2020-10-16</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Laravel-Eloquent-提示和技巧"><a href="#Laravel-Eloquent-提示和技巧" class="headerlink" title="Laravel Eloquent 提示和技巧"></a>Laravel Eloquent 提示和技巧</h1><p>Eloquent ORM 看起来像一个简单的机制，但在幕后，有很多半隐藏的功能和不太知名的方法来实现更多。在本文中，我将向您展示一些技巧。</p>
+<a id="more"></a>
+
+<h3 id="1-Increments-and-Decrements"><a href="#1-Increments-and-Decrements" class="headerlink" title="1. Increments and Decrements"></a>1. Increments and Decrements</h3><p>文章阅读量增加 1：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$article = Article::find($articleid);</span><br><span class="line">$article-&gt;readcount++;</span><br><span class="line">$article-&gt;save();</span><br></pre></td></tr></table></figure>
+
+<p>你可以这样做：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$article = Article::find($article_id);</span><br><span class="line">$article-&gt;increment(<span class="string">'read_count'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>也可以这些做：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Article::find($article_id)-&gt;increment(<span class="string">'read_count'</span>);</span><br><span class="line">Article::find($article_id)-&gt;increment(<span class="string">'read_count'</span>, <span class="number">10</span>);      <span class="comment">// +10</span></span><br><span class="line">Product::find($produce_id)-&gt;decrement(<span class="string">'stock'</span>);               <span class="comment">// -1</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-XorY-methods"><a href="#2-XorY-methods" class="headerlink" title="2. XorY methods"></a>2. XorY methods</h3><p>Eloquent有很多功能，结合了两种方法，比如“请做X，否则做Y”。</p>
+<ol>
+<li><p>findOrFail() :</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$user = User::findOrFail($id);</span><br></pre></td></tr></table></figure>
+
+<p>等价于：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$user = User::find($id);</span><br><span class="line"><span class="keyword">if</span> (!$user)  &#123;</span><br><span class="line">    abort (<span class="number">404</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>firstOrCreate() :</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$user = User::firstOrCreate([<span class="string">'email'</span> =&gt; $email]);</span><br></pre></td></tr></table></figure>
+
+<p>等价于：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$user = User::where(<span class="string">'email'</span>, $email)-&gt;first();</span><br><span class="line"><span class="keyword">if</span> (!$user) &#123;</span><br><span class="line">        User::create([<span class="string">'email'</span> =&gt; $email]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="3-模型-boot-方法"><a href="#3-模型-boot-方法" class="headerlink" title="3. 模型 boot() 方法"></a>3. 模型 boot() 方法</h3><p>在Eloquent模型中有一个名为boot（）的方法，您可以在其中覆盖默认行为：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">extends</span> <span class="title">Model</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">boot</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">parent</span>::boot();</span><br><span class="line">        <span class="keyword">static</span>::updating(<span class="function"><span class="keyword">function</span> <span class="params">($model)</span> </span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="comment">// do some logging</span></span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可能最常见的例子之一是在创建模型对象时设置一些字段值。假设你想在那一刻生成UUID字段。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">boot</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">parent</span>::boot();</span><br><span class="line">    <span class="keyword">static</span>::creating(<span class="function"><span class="keyword">function</span> <span class="params">($model)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        $model-&gt;uuid = (string)Uuid::generate();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-Relationship-with-conditions-and-ordering"><a href="#4-Relationship-with-conditions-and-ordering" class="headerlink" title="4. Relationship with conditions and ordering"></a>4. Relationship with conditions and ordering</h3><p>这是定义关系的典型方法：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">users</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   retrun <span class="keyword">$this</span>-&gt;hasMany(<span class="string">'App\User'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是你知道吗，此时我们已经可以添加 <strong>where</strong> 或 <strong>orderBy</strong> 了！<br>例如，如果您想要某种类型的用户（也是通过电子邮件订购）的特定关系，您可以这样做：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">approvedUsers</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   retrun <span class="keyword">$this</span>-&gt;hasMany(<span class="string">'App\User'</span>)-&gt;where(<span class="string">'approved'</span>, <span class="number">1</span>)-&gt;orderBy(<span class="string">'email'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-模型属性：timestamps-appends等。"><a href="#5-模型属性：timestamps-appends等。" class="headerlink" title="5. 模型属性：timestamps, appends等。"></a>5. 模型属性：timestamps, appends等。</h3><p>Eloquent模型有一些“参数”，以该类的属性形式出现。最受欢迎的可能是这些：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">extends</span> <span class="title">Model</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> $table = <span class="string">'users'</span>;</span><br><span class="line">    <span class="keyword">protected</span> $fillable = [<span class="string">'email'</span>, <span class="string">'password'</span>]; <span class="comment">// which fields can be filled with User::create()</span></span><br><span class="line">    <span class="keyword">protected</span> $dates = [<span class="string">'created_at'</span>, <span class="string">'deleted_at'</span>]; <span class="comment">// which fields will be Carbon-ized</span></span><br><span class="line">    <span class="keyword">protected</span> $appends = [<span class="string">'field1'</span>, <span class="string">'field2'</span>]; <span class="comment">// additional values returned in JSON</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但等等，还有更多：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> $primaryKey = <span class="string">'uuid'</span>; <span class="comment">// it doesn't have to be "id"</span></span><br><span class="line"><span class="keyword">public</span> $incrementing = <span class="keyword">false</span>; <span class="comment">// and it doesn't even have to be auto-incrementing!</span></span><br><span class="line"><span class="keyword">protected</span> $perPage = <span class="number">25</span>; <span class="comment">// Yes, you can override pagination count PER MODEL (default 15)</span></span><br><span class="line"><span class="keyword">const</span> CREATED_AT = <span class="string">'created_at'</span>;</span><br><span class="line"><span class="keyword">const</span> UPDATED_AT = <span class="string">'updated_at'</span>; <span class="comment">// Yes, even those names can be overridden</span></span><br><span class="line"><span class="keyword">public</span> $timestamps = <span class="keyword">false</span>; <span class="comment">// or even not used at all</span></span><br></pre></td></tr></table></figure>
+
+<p>更多请查看默认 <a href="https://github.com/laravel/framework/blob/5.6/src/Illuminate/Database/Eloquent/Model.php" target="_blank" rel="noopener">abstract Model class</a> 的代码，并查看所有使用的特征。</p>
+<h3 id="6-find"><a href="#6-find" class="headerlink" title="6. find()"></a>6. find()</h3><p>大家都知道 <strong>find()</strong> 方法可以这样用：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$user = User::find(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<p>其实 <strong>find()</strong> 还可以传递一个数组作为参数：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$users = User::find([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]);</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-whereX"><a href="#7-whereX" class="headerlink" title="7. whereX"></a>7. whereX</h3><p>有一种优雅的方式可以解决这个问题：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$users = User::where(<span class="string">'approved'</span>, <span class="number">1</span>)-&gt;get();</span><br></pre></td></tr></table></figure>
+
+<p>等价于：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$users = User::whereApproved(<span class="number">1</span>)-&gt;get();</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-Order-by-relationship"><a href="#8-Order-by-relationship" class="headerlink" title="8. Order by relationship"></a>8. Order by relationship</h3><p>一个更复杂的“技巧”。如果您有论坛主题但想通过最新帖子订购，该怎么办？顶部有最新更新主题的论坛中非常常见的要求，对吧？</p>
+<p>首先，描述关于该主题的最新帖子的单独关系：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">latestPost</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;hasOne(\App\Post::class)-&gt;latest();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后，在我们的控制器中，我们可以这样做：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$users = Topic::with(<span class="string">'latestPost'</span>)-&gt;get()-&gt;sortByDesc(<span class="string">'latestPost.created_at'</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="9-Eloquent-when-–-no-more-if-else’s"><a href="#9-Eloquent-when-–-no-more-if-else’s" class="headerlink" title="9. Eloquent::when() – no more if-else’s"></a>9. Eloquent::when() – no more if-else’s</h3><p>我们中的许多人用 “ if-else ” 编写条件查询，如下所示：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (request(<span class="string">'filter_by'</span>) == <span class="string">'likes'</span>) &#123;</span><br><span class="line">    $query-&gt;where(<span class="string">'likes'</span>, <span class="string">'&gt;'</span>, request(<span class="string">'likes_amount'</span>, <span class="number">0</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (request(<span class="string">'filter_by'</span>) == <span class="string">'date'</span>) &#123;</span><br><span class="line">    $query-&gt;orderBy(<span class="string">'created_at'</span>, request(<span class="string">'ordering_rule'</span>, <span class="string">'desc'</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但有更好的方法 - 使用 when（）：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$query = Author::query();</span><br><span class="line"></span><br><span class="line">$query-&gt;when(request(<span class="string">'filter_by'</span>) == <span class="string">'likes'</span>, <span class="function"><span class="keyword">function</span> <span class="params">($q)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> $q-&gt;where(<span class="string">'likes'</span>, <span class="string">'&gt;'</span>, request(<span class="string">'likes_amount'</span>, <span class="number">0</span>));</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$query-&gt;when(request(<span class="string">'filter_by'</span>) == <span class="string">'date'</span>, <span class="function"><span class="keyword">function</span> <span class="params">($q)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> $q-&gt;orderBy(<span class="string">'created_at'</span>, request(<span class="string">'ordering_rule'</span>, <span class="string">'desc'</span>));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>它可能不会感觉更短或更优雅，但最强大的是传递参数：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$query = User::query();</span><br><span class="line"></span><br><span class="line">$query-&gt;when(request(<span class="string">'role'</span>, <span class="keyword">false</span>), <span class="function"><span class="keyword">function</span> <span class="params">($q)</span> <span class="title">use</span> <span class="params">($role)</span> </span>&#123; </span><br><span class="line">    <span class="keyword">return</span> $q-&gt;where(<span class="string">'role_id'</span>, $role);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$authors = $query-&gt;get();</span><br></pre></td></tr></table></figure>
+
+<h3 id="10-BelongsTo-Default-Models"><a href="#10-BelongsTo-Default-Models" class="headerlink" title="10. BelongsTo Default Models"></a>10. BelongsTo Default Models</h3><p>假设你有Post属于Author，然后是Blade代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; $post-&gt;author-&gt;name &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是如果作者被删除，或者由于某种原因没有设置呢？您将收到错误，例如“property of non-object”。<br>当然，您可以像这样阻止它：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; $post-&gt;author-&gt;name ?? <span class="string">''</span> &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但你可以在Eloquent关系层面上做到这一点：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">author</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;belongsTo(<span class="string">'App\Author'</span>)-&gt;withDefault();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在此示例中，如果没有作者附加到帖子，则 author（）关系将返回空的 App \ Author 模型。<br>此外，我们可以将默认属性值分配给该默认模型。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">author</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;belongsTo(<span class="string">'App\Author'</span>)-&gt;withDefault([</span><br><span class="line">            <span class="string">'name'</span> =&gt; <span class="string">'Guest Author'</span></span><br><span class="line">    ]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="11-赋值函数排序"><a href="#11-赋值函数排序" class="headerlink" title="11. 赋值函数排序"></a>11. 赋值函数排序</h3><p>假设有这么一段代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getFullNameAttribute</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;attributes[<span class="string">'first_name'</span>].<span class="string">' '</span>.<span class="keyword">$this</span>-&gt;attributes[<span class="string">'last_name'</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果你想按照 full_name 进行排序，下面这句代码将不起作用:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$clients = Client::orderBy(<span class="string">'full_name'</span>)-&gt;get();   <span class="comment">// doesn't work</span></span><br></pre></td></tr></table></figure>
+
+<p>解决办法很简单，我们只需要在获取集合之后利用 sortBy 对集合进行排序即可：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$clients = Client::get()-&gt;sortBy(<span class="string">'full_name'</span>);   <span class="comment">// works</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="12-全局范围内默认排序"><a href="#12-全局范围内默认排序" class="headerlink" title="12. 全局范围内默认排序"></a>12. 全局范围内默认排序</h3><p>如果你希望所有用户总是按照 name 字段排序，你可以在全局范围内做一个声明，让我们回到上面已经提到的boot（）方法。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">boot</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">parent</span>::boot();</span><br><span class="line">    <span class="comment">// order by name ASC</span></span><br><span class="line">    <span class="keyword">static</span>::addGlobalScope(<span class="string">'order'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(Builder $builder)</span> </span>&#123;</span><br><span class="line">        $builder-&gt;orderBy(<span class="string">'name'</span>, <span class="string">'asc);</span></span><br><span class="line"><span class="string">    &#125;);</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="13-原始查询方法"><a href="#13-原始查询方法" class="headerlink" title="13. 原始查询方法"></a>13. 原始查询方法</h3><p>有时候我们需要在Eloquent查询语句中添加原始查询</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// whereRaw</span></span><br><span class="line">$orders = DB::table(<span class="string">'orders'</span>)</span><br><span class="line">        -&gt;whereRaw(<span class="string">'price &gt; IF(state = "TX", ?, 100)'</span>, [<span class="number">200</span>])</span><br><span class="line">        -&gt;get();</span><br><span class="line"><span class="comment">// havingRaw</span></span><br><span class="line">Product::groupBy(<span class="string">'category_id'</span>)-&gt;havingRaw(<span class="string">'COUNT(*) &gt; 1'</span>)-&gt;get();</span><br><span class="line"><span class="comment">// orderByRaw</span></span><br><span class="line">User::where(<span class="string">'created_at'</span>, <span class="string">'&gt;'</span>, <span class="string">'2018-11-11'</span>)</span><br><span class="line">    -&gt;orderByRaw(<span class="string">'(updated_at - created_at) desc'</span>)</span><br><span class="line">    -&gt;get();</span><br></pre></td></tr></table></figure>
+
+<h3 id="14-Replicate-制作一行的副本"><a href="#14-Replicate-制作一行的副本" class="headerlink" title="14. Replicate: 制作一行的副本"></a>14. Replicate: 制作一行的副本</h3><p>制作数据库条目副本的最佳方法:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$task = Task::find(<span class="number">1</span>);</span><br><span class="line">$newTask = $task-&gt;replicate();</span><br><span class="line">$newTask-&gt;save();</span><br></pre></td></tr></table></figure>
+
+<h3 id="15-chunk-方法批量处理大数据量"><a href="#15-chunk-方法批量处理大数据量" class="headerlink" title="15. chunk() 方法批量处理大数据量"></a>15. chunk() 方法批量处理大数据量</h3><p>不完全与Eloquent相关，它更多关于Collection，但仍然很强大 - 处理更大的数据集，你可以将它们分成几块。<br>一般情况下数据量不太大的情况下会像下面这样遍历</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$users = User::all();</span><br><span class="line"><span class="keyword">foreach</span>($users <span class="keyword">as</span> $user) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>数据太大就能显示 chunk() 的神威了</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">User::chunk(<span class="number">100</span>, <span class="function"><span class="keyword">function</span> <span class="params">($users)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">foreach</span>($users <span class="keyword">as</span> $user) &#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="16-命令行创建模型的同时，创建迁移文件和控制器"><a href="#16-命令行创建模型的同时，创建迁移文件和控制器" class="headerlink" title="16. 命令行创建模型的同时，创建迁移文件和控制器"></a>16. 命令行创建模型的同时，创建迁移文件和控制器</h3><p>laravel创建模型的命令大家都很熟悉：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan make:model Company</span><br></pre></td></tr></table></figure>
+
+<p>不过你应该了解另外几个很常用的参数：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">php artisan make:model Company -m</span><br><span class="line">php artisan make:model Company -mc</span><br><span class="line">php artisan make:model Company -mcr</span><br><span class="line">php artisan make:model Company -mcrf</span><br></pre></td></tr></table></figure>
+
+<p>-m 表示创建模型对应的迁移文件<br>-c 表示创建模型对应的控制器<br>-r 表示创建的控制器属于资源控制器<br>-f 表示创建模型对应的工厂文件</p>
+<p>实际上上述几个情况，也可以通过 -a 来实现</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan make:model Company -a</span><br></pre></td></tr></table></figure>
+
+<h3 id="17-保存数据的同时-覆盖-updated-at-的默认更新时间"><a href="#17-保存数据的同时-覆盖-updated-at-的默认更新时间" class="headerlink" title="17. 保存数据的同时 覆盖 updated_at 的默认更新时间"></a>17. 保存数据的同时 覆盖 updated_at 的默认更新时间</h3><p>其实 -&gt;save() 方法是可以接受额外参数的，因此，我们可以告诉它“忽略”updated_at默认功能以填充当前时间戳。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$product = Product::find(<span class="number">1</span>);</span><br><span class="line">$product-&gt;updated_at = <span class="string">'2018-11-11 11:11:11'</span>;</span><br><span class="line">$product-&gt;save([<span class="string">'timestamps'</span> =&gt; <span class="keyword">false</span>]);</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，我们用我们预先定义的版本覆盖默认的updated_at。</p>
+<h3 id="18-update-方法的执行结果"><a href="#18-update-方法的执行结果" class="headerlink" title="18. update() 方法的执行结果"></a>18. update() 方法的执行结果</h3><p>你有没有想过这段代码究竟返回了什么？</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$result = $product-&gt;whereNull(<span class="string">'category_id'</span>)-&gt;update([<span class="string">'category_id'</span> =&gt; <span class="number">1</span>]);</span><br></pre></td></tr></table></figure>
+
+<p>更新是在数据库中执行的，但$ result会包含什么？<br>答案是受影响的行。因此，如果您需要检查受影响的行数，则无需再调用任何其他内容 - update（）方法将为您返回此数字。</p>
+<h3 id="19-将and-或者-or转换为Eloquent查询"><a href="#19-将and-或者-or转换为Eloquent查询" class="headerlink" title="19. 将and 或者 or转换为Eloquent查询"></a>19. 将and 或者 or转换为Eloquent查询</h3><p>在你的查询中肯定会遇到 and 或者 or 的情况，就像这样：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">... where (gender = <span class="string">'Male'</span> <span class="keyword">and</span> age &gt; <span class="number">18</span>) <span class="keyword">or</span> (gender = <span class="string">'Female'</span> <span class="keyword">and</span> age &gt;= <span class="number">65</span>)</span><br></pre></td></tr></table></figure>
+
+<p>那么怎么转换成Eloquent查询呢？先来看一个错误的例子：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$q-&gt;where(<span class="string">'gender'</span>, <span class="string">'Male'</span>);</span><br><span class="line">$q-&gt;where(<span class="string">'age'</span>, <span class="string">'&gt;'</span>, <span class="number">18</span>);</span><br><span class="line">$q-&gt;orWhere(<span class="string">'gender'</span>, <span class="string">'Female'</span>);</span><br><span class="line">$q-&gt;where(<span class="string">'age'</span>, <span class="string">'&gt;='</span>, <span class="number">65</span>);</span><br></pre></td></tr></table></figure>
+
+<p>正确的方法有点复杂，使用闭包函数作为子查询：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$q-&gt;where(<span class="function"><span class="keyword">function</span> <span class="params">($query)</span> </span>&#123;</span><br><span class="line">    $query-&gt;where(<span class="string">'gender'</span>, <span class="string">'Male'</span>)-&gt;where(<span class="string">'age'</span>, <span class="string">'&gt;'</span>, <span class="number">18</span>);</span><br><span class="line">&#125;)-&gt;orWhere(<span class="function"><span class="keyword">function</span> <span class="params">($query)</span> </span>&#123;</span><br><span class="line">    $query-&gt;where(<span class="string">'gender'</span>, <span class="string">'Female'</span>)-&gt;orWhere(<span class="string">'age'</span>, <span class="string">'&gt;='</span>, <span class="number">65</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="20-orWhere-有多个参数的情况"><a href="#20-orWhere-有多个参数的情况" class="headerlink" title="20. orWhere() 有多个参数的情况"></a>20. orWhere() 有多个参数的情况</h3><p>通常情况下遇到这种查询：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$q-&gt;where(<span class="string">'a'</span>, <span class="number">1</span>);</span><br><span class="line">$q-&gt;orWhere(<span class="string">'b'</span>, <span class="number">2</span>);</span><br><span class="line">$q-&gt;orWhere(<span class="string">'c'</span>, <span class="number">65</span>);</span><br></pre></td></tr></table></figure>
+
+<p>这种情况下可以传递一个数组作为 orWhere() 的参数：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$q-&gt;where(<span class="string">'a'</span>, <span class="number">1</span>);</span><br><span class="line">$q-&gt;orWhere([<span class="string">'b'</span> =&gt; <span class="number">2</span>, <span class="string">'c'</span> =&gt; <span class="number">65</span>]);</span><br></pre></td></tr></table></figure>
+
+<p>原文：<a href="https://laravel-news.com/eloquent-tips-tricks" target="_blank" rel="noopener">https://laravel-news.com/eloquent-tips-tricks</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Laravel/" rel="tag"># Laravel</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/12/%E5%9C%A8%E9%9D%A2%E8%AF%95%E5%89%8D%E5%BF%85%E9%A1%BB%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84-Redis-%E9%9D%A2%E8%AF%95%E5%86%85%E5%AE%B9/" rel="prev" title="在面试前必须要知道的 Redis 面试内容">
+      <i class="fa fa-chevron-left"></i> 在面试前必须要知道的 Redis 面试内容
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/12/%E7%BB%88%E7%AB%AF%E4%BB%A3%E7%90%86/" rel="next" title="终端代理">
+      终端代理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+        </div>
+        
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">孔维民</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
