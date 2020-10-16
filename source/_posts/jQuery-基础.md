@@ -314,7 +314,7 @@ $("#p1").css("color","red").slideUp(2000).slideDown(2000);
 var form = $('form').serialize();
 $.ajax({
     //后台地址
-    url: '{{route("project.get")}}',
+    url: 'index.php',
     //传输方式 get/post/put/patch/delete
     type: 'post',
     //传到后台的数据
@@ -355,16 +355,16 @@ $.ajax({
 			$('#submit').click(function () {
 				let files = $(':file').prop('files');
 				let data = new FormData();
-            	data.append('file', files[0]);
-            	data.append('other', 1);
+        data.append('file', files[0]);
+        data.append('other', 1);
 
 				$.ajax({
-					url: 'proxy.php',
+					url: 'index.php',
 					type: 'post',
 					data: data,
 					dataType: "json",
 					processData: false,
-                	contentType: false,
+          contentType: false,
 				});
 
 				return false;
